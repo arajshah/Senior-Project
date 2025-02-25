@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/chat.css') }}" rel="stylesheet">
+{% endblock %}
+{% block title %}Chat with Aurora{% endblock %}
+
+{% block content %}
+<div class="chat-page">
+  <div class="chat-wrapper">
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="chat-title">
+                <i class="fas fa-moon"></i>
+                <h1>Chat with Aurora</h1>
+            </div>
+            <p class="chat-subtitle">Your supportive mental health assistant</p>
+        </div>
+
+        <div class="messages-container" id="messages">
+            <div class="message assistant">
+                <div class="message-content">
+                    <i class="fas fa-moon message-icon"></i>
+                    <div class="message-bubble">
+                        Hello! I'm Aurora, your mental health assistant. How are you feeling today?
+                    </div>
+                </div>
+                <div class="message-time">Just now</div>
+            </div>
+        </div>
+
+        <form id="chat-form" class="chat-input-container">
+            <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+            <button type="submit">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

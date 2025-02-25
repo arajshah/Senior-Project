@@ -1,0 +1,55 @@
+<!-- templates/workplan.html -->
+{% extends "base.html" %}
+
+{% block title %}Personal Work Plan{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Generate Your Mental Health Work Plan</h2>
+<div class="row mb-3">
+  <div class="col-md-6">
+    <input 
+      type="text" 
+      id="mood" 
+      class="form-control" 
+      placeholder="Current mood"
+    >
+  </div>
+  <div class="col-md-6">
+    <input 
+      type="text" 
+      id="goals" 
+      class="form-control" 
+      placeholder="Your goals"
+    >
+  </div>
+</div>
+<button class="btn btn-primary" onclick="generateWorkplan()">
+  Generate Plan
+</button>
+
+<div class="mt-4" id="workplanResult"></div>
+
+<script>
+async function generateWorkplan() {
+  const mood = document.getElementById("mood").value.trim();
+  const goals = document.getElementById("goals").value.trim();
+
+  const res = await fetch("/api/generate_workplan", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ mood, goals })
+  });
+  const data = await res.json();
+
+  const resultDiv = document.getElementById("workplanResult");
+  resultDiv.innerHTML = `
+    <div class="card feature-card">
+      <div class="card-body">
+        <h5 class="card-title">Your Personalized Plan</h5>
+        <p class="card-text">${data.workplan}</p>
+      </div>
+    </div>
+  `;
+}
+</script>
+{% endblock %}

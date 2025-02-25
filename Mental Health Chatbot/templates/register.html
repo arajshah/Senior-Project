@@ -1,0 +1,56 @@
+{% extends "auth_base.html" %}
+
+{% block title %}Register - Aurora{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <h2 class="auth-title">Join Aurora</h2>
+        <p class="auth-subtitle">Begin your wellness journey today</p>
+        
+        <form method="POST" class="auth-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    <input type="text" class="form-control" name="username" id="username" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <input type="email" class="form-control" name="email" id="email" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" name="password" id="password" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
+                </div>
+            </div>
+
+            <button type="submit" class="auth-button">
+                <span>Create Account</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </form>
+
+        <p class="auth-footer">
+            Already have an account? 
+            <a href="{{ url_for('user_bp.login') }}">Login</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

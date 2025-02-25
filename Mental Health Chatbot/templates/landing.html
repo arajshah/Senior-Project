@@ -1,0 +1,41 @@
+{% extends "landing_base.html" %}
+
+{% block title %}Aurora - Your Mental Health Companion{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="particles-container" id="particles-js"></div>
+
+<div class="landing-container">
+    <div class="hero-content" data-aos="fade-up">
+        <h1 class="main-title">Welcome to Aurora</h1>
+        <p class="subtitle">Your companion on the journey to mental well-being</p>
+        
+        <div class="cta-wrapper">
+            <a href="{{ url_for('user_bp.register') }}" class="try-aurora-btn">
+                <span class="btn-text">Try Aurora</span>
+                <div class="btn-glow"></div>
+            </a>
+        </div>
+    </div>
+
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='js/landing.js') }}"></script>
+{% endblock %}

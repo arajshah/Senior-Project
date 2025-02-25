@@ -1,0 +1,22 @@
+<!-- templates/resources.html -->
+{% extends "base.html" %}
+
+{% block title %}Resources{% endblock %}
+
+{% block content %}
+<h2>Mental Health Resources</h2>
+{% if resources %}
+  <ul>
+    {% for resource in resources %}
+      <li>
+        <strong>{{ resource.name }}</strong><br>
+        {{ resource.description }}<br>
+        <a href="{{ resource.link }}" target="_blank">{{ resource.link }}</a>
+      </li>
+      <hr>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No resources found.</p>
+{% endif %}
+{% endblock %}

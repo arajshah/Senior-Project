@@ -1,0 +1,66 @@
+<!-- templates/professionals.html -->
+{% extends "base.html" %}
+
+{% block title %}Find Professionals{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Locate Mental Health Professionals</h2>
+<div class="row mb-4">
+  <div class="col-md-6">
+    <input 
+      type="text" 
+      id="location" 
+      class="form-control" 
+      placeholder="Location (city, state, or zip)"
+    >
+  </div>
+  <div class="col-md-6">
+    <input 
+      type="text" 
+      id="specialty" 
+      class="form-control" 
+      placeholder="Specialty (e.g. therapy, counseling)"
+    >
+  </div>
+</div>
+<button class="btn btn-success mb-4" onclick="findProfessionals()">
+  Search
+</button>
+
+<div id="professionalsResult" class="row"></div>
+
+<script>
+async function findProfessionals() {
+  const location = document.getElementById("location").value.trim();
+  const specialty = document.getElementById("specialty").value.trim();
+
+  const res = await fetch("/api/find_professionals", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ location, specialty })
+  });
+  const data = await res.json();
+
+  const resultDiv = document.getElementById("professionalsResult");
+  if (data.professionals && data.professionals.length > 0) {
+    resultDiv.innerHTML = data.professionals.map(prof => {
+      return `
+      <div class="col-md-6">
+        <div class="card feature-card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">${prof.name}</h5>
+            <p class="card-text">
+              <strong>Location:</strong> ${prof.location}<br>
+              <strong>Specialty:</strong> ${prof.specialty}
+            </p>
+          </div>
+        </div>
+      </div>
+      `;
+    }).join("");
+  } else {
+    resultDiv.innerHTML = `<p>No matching professionals found.</p>`;
+  }
+}
+</script>
+{% endblock %}

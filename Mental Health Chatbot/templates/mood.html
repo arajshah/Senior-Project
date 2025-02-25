@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/mood.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Mood Tracker | Aurora{% endblock %}
+
+{% block content %}
+<div class="mood-page">
+  <div class="mood-container">
+    <div class="mood-header">
+      <div class="mood-title">
+        <i class="fas fa-chart-line"></i>
+        <h1>Mood Tracker</h1>
+      </div>
+      <p class="mood-subtitle">Track how you're feeling to identify patterns and progress</p>
+    </div>
+
+    <div class="mood-tracking-section">
+      <h2>How are you feeling today?</h2>
+      
+      <form id="mood-form" method="POST">
+        <div class="mood-slider-container">
+          <div class="mood-labels">
+            <span>😔</span>
+            <span>😐</span>
+            <span>😊</span>
+          </div>
+          <input type="range" id="mood_value" name="mood_value" min="1" max="10" value="5" class="mood-slider">
+          <div class="mood-value-display">5</div>
+        </div>
+
+        <div class="note-container">
+          <label for="note">What's on your mind?</label>
+          <textarea id="note" name="note" placeholder="Share your thoughts..." rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="submit-button">
+          <i class="fas fa-save"></i> Save Mood
+        </button>
+      </form>
+    </div>
+
+    <div class="mood-history-section">
+      <div class="section-header">
+        <h2>Your Mood Journey</h2>
+        <div class="chart-controls">
+          <button id="week-view" class="time-filter active">Week</button>
+          <button id="month-view" class="time-filter">Month</button>
+          <button id="all-view" class="time-filter">All</button>
+        </div>
+      </div>
+      
+      <div class="chart-container">
+        <canvas id="moodChart"></canvas>
+      </div>
+      
+      <div class="mood-insights">
+        <div class="insight-card">
+          <div class="insight-icon"><i class="fas fa-arrow-trend-up"></i></div>
+          <div class="insight-content">
+            <h3>Average Mood</h3>
+            <p id="average-mood">Calculating...</p>
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-icon"><i class="fas fa-calendar-check"></i></div>
+          <div class="insight-content">
+            <h3>Entries</h3>
+            <p id="entry-count">Calculating...</p>
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-icon"><i class="fas fa-chart-simple"></i></div>
+          <div class="insight-content">
+            <h3>Trend</h3>
+            <p id="mood-trend">Analyzing...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mood-entries-section">
+      <h2>Recent Entries</h2>
+      <div id="recent-entries" class="entries-container">
+        <div class="loading-entries">Loading your entries...</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+<script src="{{ url_for('static', filename='js/mood.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Dashboard - Aurora{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Welcome Section with Animated Gradient -->
+    <div class="welcome-section" data-aos="fade-up">
+        <h1>Welcome back, {{ session.username }}!</h1>
+        <p class="stats-summary">Your wellness journey: {{ days_active }} days active</p>
+    </div>
+
+    <!-- Main Features Grid -->
+    <div class="dashboard-grid">
+        <!-- Core Features -->
+        <div class="dashboard-section" data-aos="fade-up">
+            <h2 class="section-title"><i class="fas fa-star"></i> Nurture your journey</h2>
+            <div class="feature-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Chat Sessions</h3>
+                    <p class="stat-number">{{ chat_count }}</p>
+                    <a href="{{ url_for('conversation_bp.chat_page') }}" class="card-link">
+                        Start Chat <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Mood Tracking</h3>
+                    <p class="stat-number">{{ mood_entries }} entries</p>
+                    <a href="{{ url_for('mood_bp.mood') }}" class="card-link">
+                        Track Mood <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Journal Entries</h3>
+                    <p class="stat-number">{{ journal_count }}</p>
+                    <a href="{{ url_for('journal_bp.journal') }}" class="card-link">
+                        Write Entry <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insights Section -->
+        <div class="dashboard-section insights-section" data-aos="fade-up">
+            <h2 class="section-title"><i class="fas fa-lightbulb"></i> Your Wellness Insights</h2>
+            <div class="chart-container">
+                <canvas id="moodChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Two-Column Layout for Community and Professional Help -->
+        <div class="dashboard-section support-section" data-aos="fade-up">
+            <h2 class="section-title"><i class="fas fa-hands-helping"></i> Support Resources</h2>
+            <div class="support-grid">
+                <!-- Community Box -->
+                <div class="support-card community-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="support-card-header">
+                        <div class="support-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Community Support</h3>
+                    </div>
+                    <p>Connect with others on similar wellness journeys. Share experiences, get advice, and build a support network.</p>
+                    <div class="community-features">
+                        <div class="community-feature">
+                            <i class="fas fa-comment-dots"></i>
+                            <span>Discussion Forums</span>
+                        </div>
+                        <div class="community-feature">
+                            <i class="fas fa-user-friends"></i>
+                            <span>Support Groups</span>
+                        </div>
+                        <div class="community-feature">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Virtual Events</span>
+                        </div>
+                    </div>
+                    <a href="#" class="gradient-button">
+                        Join Community <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Professional Help Box -->
+                <div class="support-card professional-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="support-card-header">
+                        <div class="support-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h3>Professional Help</h3>
+                    </div>
+                    <p>Get connected with licensed mental health professionals who can provide specialized care and support.</p>
+                    <div class="professionals-list">
+                        <div class="professional-type">
+                            <i class="fas fa-brain"></i>
+                            <div>
+                                <h4>Psychologists</h4>
+                                <span>For therapy and psychological assessment</span>
+                            </div>
+                        </div>
+                        <div class="professional-type">
+                            <i class="fas fa-pills"></i>
+                            <div>
+                                <h4>Psychiatrists</h4>
+                                <span>For medication management and treatment</span>
+                            </div>
+                        </div>
+                        <div class="professional-type">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <div>
+                                <h4>Counselors</h4>
+                                <span>For ongoing guidance and support</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="gradient-button">
+                        Find Professional <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

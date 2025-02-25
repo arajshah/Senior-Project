@@ -1,0 +1,42 @@
+<!-- templates/referral.html -->
+{% extends "base.html" %}
+{% block title %}Find Professional Help{% endblock %}
+
+{% block content %}
+<div class="referral-page">
+  <h2>Find a Mental Health Professional</h2>
+  <p>Search by location and specialty to find the right help.</p>
+
+  <div class="referral-form">
+    <input type="text" id="location" placeholder="Location (city, state, or zip)">
+    <input type="text" id="specialty" placeholder="Specialty (e.g., therapy, counseling)">
+    <button onclick="findProfessionals()">Search</button>
+  </div>
+
+  <div id="professionalsResult" class="referral-result"></div>
+</div>
+
+<script>
+async function findProfessionals() {
+  const location = document.getElementById("location").value;
+  const specialty = document.getElementById("specialty").value;
+
+  const res = await fetch("/api/find_professionals", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({location, specialty})
+  });
+  const data = await res.json();
+
+  const resultDiv = document.getElementById("professionalsResult");
+  if (data.professionals && data.professionals.length > 0) {
+    const listItems = data.professionals.map(prof => {
+      return `<li><strong>${prof.name}</strong><br>${prof.location} – ${prof.specialty}</li>`;
+    }).join("");
+    resultDiv.innerHTML = `<ul>${listItems}</ul>`;
+  } else {
+    resultDiv.innerHTML = "<p>No matching professionals found.</p>";
+  }
+}
+</script>
+{% endblock %}

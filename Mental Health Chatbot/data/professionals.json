@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Dr. Alice Johnson",
+        "location": "New York, NY",
+        "specialty": "Clinical Psychology"
+    },
+    {
+        "name": "Dr. Marcus Lee",
+        "location": "Los Angeles, CA",
+        "specialty": "Counseling Psychology"
+    },
+    {
+        "name": "Dr. Sarah Williams",
+        "location": "Chicago, IL",
+        "specialty": "Family Therapy"
+    },
+    {
+        "name": "Dr. David Brown",
+        "location": "Los Angeles, CA",
+        "specialty": "Relationship Counseling"
+    }
+]
