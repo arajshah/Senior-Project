@@ -31,10 +31,12 @@ def register():
 @user_bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
+        print("We are here")
         username = request.form.get("username")
         password = request.form.get("password")
 
         user = User.query.filter_by(username=username).first()
+        
         if user and user.check_password(password):
             session["user_id"] = user.id
             session["username"] = user.username
@@ -42,6 +44,7 @@ def login():
         else:
             return "Invalid credentials.", 401
 
+    print("We are out here")
     return render_template("login.html")
 
 @user_bp.route("/logout")

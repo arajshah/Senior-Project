@@ -20,6 +20,8 @@ def create_app():
     from controllers.mood_controller import mood_bp
     from controllers.journal_controller import journal_bp
     from controllers.resources_controller import resources_bp
+    from controllers.community_controller import community_bp
+    from controllers.professional_controller import professional_bp
 
     # Register Blueprints
     app.register_blueprint(pages_bp)
@@ -30,6 +32,8 @@ def create_app():
     app.register_blueprint(mood_bp,        url_prefix="/api")
     app.register_blueprint(journal_bp,     url_prefix="/user")
     app.register_blueprint(resources_bp,   url_prefix="/user")
+    app.register_blueprint(community_bp,   url_prefix="/community")
+    app.register_blueprint(professional_bp, url_prefix="/professionals")
 
     # Create database tables
     with app.app_context():

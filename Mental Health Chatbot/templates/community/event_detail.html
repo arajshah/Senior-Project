@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}{{ event.title }} - Aurora Events{% endblock %}
+
+{% block content %}
+<div class="community-page event-detail-page">
+  <div class="community-header">
+    <div class="container">
+      <div class="breadcrumbs">
+        <a href="{{ url_for('community_bp.community_home') }}">Community</a> &gt;
+        <a href="{{ url_for('community_bp.events') }}">Events</a> &gt;
+        <span>{{ event.title }}</span>
+      </div>
+      <h1 class="page-title">{{ event.title }}</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="event-container">
+      <div class="event-main-content" data-aos="fade-up">
+        <div class="event-info-card">
+          <div class="event-datetime">
+            <div class="event-date">
+              <span class="day">{{ event.date.strftime('%d') }}</span>
+              <span class="month">{{ event.date.strftime('%b') }}</span>
+              <span class="year">{{ event.date.strftime('%Y') }}</span>
+            </div>
+            <div class="event-time">
+              <i class="fas fa-clock"></i>
+              <span>{{ event.date.strftime('%I:%M %p') }}</span>
+              <span class="duration">{{ event.duration_minutes }} minutes</span>
+            </div>
+          </div>
+          
+          <div class="event-description">
+            <h3>About This Event</h3>
+            <p>{{ event.description }}</p>
+          </div>
+          
+          <div class="event-host">
+            <h3>Host</h3>
+            <div class="host-info">
+              <div class="host-avatar">
+                {{ event.host[0] }}
+              </div>
+              <div class="host-details">
+                <h4>{{ event.host }}</h4>
+                <p>Mental Health Specialist</p>
+              </div>
+            </div>
+          </div>
+
+          {% if event.date > now %}
+            <div class="event-actions">
+              {% if event in session.user.events %}
+                <button id="cancel-registration-btn" class="btn-secondary" data-event-id="{{ event.id }}">
+                  <i class="fas fa-times"></i> Cancel Registration
+                </button>
+              {% else %}
+                <button id="register-event-btn" class="gradient-button" data-event-id="{{ event.id }}">
+                  <i class="fas fa-check"></i> Register for Event
+                </button>
+              {% endif %}
+              
+              {% if event.meeting_link %}
+                <a href="{{ event.meeting_link }}" target="_blank" class="btn-primary">
+                  <i class="fas fa-video"></i> Join Event
+                </a>
+              {% endif %}
+              
+              <button id="add-calendar-btn" class="btn-outline">
+                <i class="fas fa-calendar-plus"></i> Add to Calendar
+              </button>
+            </div>
+          {% elif event.recording_link %}
+            <div class="event-actions">
+              <a href="{{ event.recording_link }}" target="_blank" class="btn-primary">
+                <i class="fas fa-play"></i> Watch Recording
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="event-sidebar" data-aos="fade-up" data-aos-delay="100">
+        <div class="attendees-card">
+          <h3>Attendees ({{ event.attendees|length }})</h3>
+          
+          <div class="attendees-list">
+            {% for attendee in event.attendees %}
+              <div class="attendee-item">
+                <div class="attendee-avatar">
+                  {{ attendee.username[0] }}
+                </div>
+                <div class="attendee-name">
+                  {% if attendee.id == session.user_id %}
+                    {{ attendee.username }} (You)
+                  {% else %}
+                    {{ attendee.username }}
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        
+        <div class="related-events-card">
+          <h3>Related Events</h3>
+          
+          <div class="related-events-list">
+            <!-- This would be populated with actual related events in a real app -->
+            <div class="related-event-item">
+              <div class="related-event-date">
+                <span class="day">18</span>
+                <span class="month">Nov</span>
+              </div>
+              <div class="related-event-info">
+                <h4>Mindfulness Workshop</h4>
+                <p>7:00 PM • 60 minutes</p>
+              </div>
+            </div>
+            
+            <div class="related-event-item">
+              <div class="related-event-date">
+                <span class="day">25</span>
+                <span class="month">Nov</span>
+              </div>
+              <div class="related-event-info">
+                <h4>Stress Management</h4>
+                <p>6:30 PM • 45 minutes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{{ url_for('static', filename='js/community/events.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Events - Aurora Community{% endblock %}
+
+{% block content %}
+<div class="community-page events-page">
+  <div class="community-header">
+    <div class="container">
+      <h1 class="page-title"><i class="fas fa-calendar-check"></i> Virtual Events</h1>
+      <p class="subtitle">Join workshops, webinars, and group sessions for your wellness journey</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="community-toolbar">
+      <div class="search-container">
+        <input type="text" id="event-search" placeholder="Search events..." class="search-input">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+      <div class="filter-container">
+        <select id="event-filter" class="filter-select">
+          <option value="all">All Events</option>
+          <option value="workshop">Workshops</option>
+          <option value="webinar">Webinars</option>
+          <option value="group">Group Sessions</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Upcoming Events Section -->
+    <div class="events-section" data-aos="fade-up">
+      <h2 class="section-title">Upcoming Events</h2>
+      
+      <div class="events-grid" id="upcoming-events-container">
+        {% if upcoming_events %}
+          {% for event in upcoming_events %}
+            <div class="event-card" data-aos="fade-up">
+              <div class="event-date">
+                <span class="day">{{ event.date.strftime('%d') }}</span>
+                <span class="month">{{ event.date.strftime('%b') }}</span>
+              </div>
+              <div class="event-details">
+                <h3>{{ event.title }}</h3>
+                <p class="event-description">{{ event.description }}</p>
+                <div class="event-info">
+                  <p><i class="fas fa-clock"></i> {{ event.date.strftime('%I:%M %p') }} • {{ event.duration_minutes }} mins</p>
+                  <p><i class="fas fa-user"></i> Hosted by {{ event.host }}</p>
+                </div>
+                <a href="{{ url_for('community_bp.event_detail', event_id=event.id) }}" class="card-link">
+                  View Details <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="empty-state">
+            <i class="fas fa-calendar-times"></i>
+            <p>No upcoming events</p>
+            <p class="empty-suggestion">Check back soon for new events</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Past Events Section -->
+    <div class="events-section past-events" data-aos="fade-up">
+      <h2 class="section-title">Past Events</h2>
+      
+      <div class="events-grid" id="past-events-container">
+        {% if past_events %}
+          {% for event in past_events %}
+            <div class="event-card past-event" data-aos="fade-up">
+              <div class="event-date">
+                <span class="day">{{ event.date.strftime('%d') }}</span>
+                <span class="month">{{ event.date.strftime('%b') }}</span>
+              </div>
+              <div class="event-details">
+                <h3>{{ event.title }}</h3>
+                <p class="event-description">{{ event.description }}</p>
+                <div class="event-info">
+                  <p><i class="fas fa-clock"></i> {{ event.date.strftime('%I:%M %p') }} • {{ event.duration_minutes }} mins</p>
+                  <p><i class="fas fa-user"></i> Hosted by {{ event.host }}</p>
+                </div>
+                {% if event.recording_link %}
+                  <a href="{{ event.recording_link }}" class="card-link" target="_blank">
+                    Watch Recording <i class="fas fa-play"></i>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="empty-state">
+            <i class="fas fa-history"></i>
+            <p>No past events</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{{ url_for('static', filename='js/community/events.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/professionals.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}{{ professional.name }} - Aurora{% endblock %}
+
+{% block content %}
+<div class="professionals-page detail-page">
+  <div class="professionals-header">
+    <div class="container">
+      <div class="breadcrumbs">
+        <a href="{{ url_for('professional_bp.professionals_home') }}">Professional Help</a> &gt;
+        {% if professional.profession == 'Psychologist' %}
+          <a href="{{ url_for('professional_bp.psychologists') }}">Psychologists</a>
+        {% elif professional.profession == 'Psychiatrist' %}
+          <a href="{{ url_for('professional_bp.psychiatrists') }}">Psychiatrists</a>
+        {% else %}
+          <a href="{{ url_for('professional_bp.counselors') }}">Counselors</a>
+        {% endif %}
+        &gt;
+        <span>{{ professional.name }}</span>
+      </div>
+      <h1 class="page-title">{{ professional.name }}</h1>
+      <p class="subtitle">{{ professional.credentials }}</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="professional-container">
+      <div class="professional-main-content" data-aos="fade-up">
+        <div class="profile-card">
+          <div class="profile-header">
+            <div class="profile-avatar large">
+              {{ professional.name[0] }}{{ professional.name.split()[-1][0] }}
+            </div>
+            <div class="profile-badges">
+              <span class="badge verified"><i class="fas fa-check-circle"></i> Verified</span>
+              {% if professional.profession == 'Psychiatrist' %}
+                <span class="badge medical"><i class="fas fa-user-md"></i> MD</span>
+              {% endif %}
+            </div>
+          </div>
+          
+          <div class="profile-info">
+            <h2>About {{ professional.name.split()[0] }}</h2>
+            <p>{{ professional.bio }}</p>
+            
+            <h3>Specialties</h3>
+            <div class="specialties-list">
+              {% for specialty in professional.specialties.split(',') %}
+                <span class="specialty-tag">{{ specialty.strip() }}</span>
+              {% endfor %}
+            </div>
+            
+            <h3>Education & Credentials</h3>
+            <ul class="credentials-list">
+              {% for credential in professional.credentials.split(';') %}
+                <li><i class="fas fa-graduation-cap"></i> {{ credential.strip() }}</li>
+              {% endfor %}
+            </ul>
+            
+            <h3>Approach to Therapy</h3>
+            <p>{{ professional.approach }}</p>
+          </div>
+        </div>
+        
+        <div class="booking-card" data-aos="fade-up">
+          <h2>Book a Session</h2>
+          <p class="booking-intro">Select a date and time for your virtual session with {{ professional.name.split()[0] }}.</p>
+          
+          <div class="date-selector">
+            <button class="date-nav prev" id="prev-dates">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="date-options" id="date-options">
+              <div class="date-option selected">
+                <span class="day-name">Mon</span>
+                <span class="day-number">15</span>
+              </div>
+              <div class="date-option">
+                <span class="day-name">Tue</span>
+                <span class="day-number">16</span>
+              </div>
+              <div class="date-option">
+                <span class="day-name">Wed</span>
+                <span class="day-number">17</span>
+              </div>
+              <div class="date-option">
+                <span class="day-name">Thu</span>
+                <span class="day-number">18</span>
+              </div>
+              <div class="date-option">
+                <span class="day-name">Fri</span>
+                <span class="day-number">19</span>
+              </div>
+            </div>
+            <button class="date-nav next" id="next-dates">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          
+          <div class="time-slots">
+            <h3>Available Time Slots</h3>
+            <div class="time-options">
+              <button class="time-option">9:00 AM</button>
+              <button class="time-option">10:30 AM</button>
+              <button class="time-option">1:00 PM</button>
+              <button class="time-option">2:30 PM</button>
+              <button class="time-option">4:00 PM</button>
+              <button class="time-option">5:30 PM</button>
+            </div>
+          </div>
+          
+          <div class="session-type">
+            <h3>Session Type</h3>
+            <div class="session-options">
+              <label class="session-option">
+                <input type="radio" name="session-type" value="video" checked>
+                <span class="session-label">
+                  <i class="fas fa-video"></i>
+                  Video Call
+                </span>
+              </label>
+              <label class="session-option">
+                <input type="radio" name="session-type" value="phone">
+                <span class="session-label">
+                  <i class="fas fa-phone-alt"></i>
+                  Phone Call
+                </span>
+              </label>
+            </div>
+          </div>
+          
+          <button class="gradient-button book-now-btn" id="book-button">
+            Book Appointment <i class="fas fa-calendar-check"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="professional-sidebar" data-aos="fade-up" data-aos-delay="100">
+        <div class="availability-card">
+          <h3>Regular Availability</h3>
+          <ul class="availability-list">
+            <li>
+              <span class="day">Monday</span>
+              <span class="hours">9:00 AM - 5:00 PM</span>
+            </li>
+            <li>
+              <span class="day">Tuesday</span>
+              <span class="hours">9:00 AM - 5:00 PM</span>
+            </li>
+            <li>
+              <span class="day">Wednesday</span>
+              <span class="hours">9:00 AM - 5:00 PM</span>
+            </li>
+            <li>
+              <span class="day">Thursday</span>
+              <span class="hours">9:00 AM - 5:00 PM</span>
+            </li>
+            <li>
+              <span class="day">Friday</span>
+              <span class="hours">9:00 AM - 5:00 PM</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="reviews-card">
+          <h3>Client Reviews</h3>
+          <div class="reviews-summary">
+            <div class="rating">
+              <span class="rating-number">4.9</span>
+              <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <span class="reviews-count">28 reviews</span>
+            </div>
+          </div>
+          
+          <div class="reviews-list">
+            <div class="review">
+              <div class="review-header">
+                <div class="review-avatar">A</div>
+                <div class="review-info">
+                  <div class="review-name">Anonymous</div>
+                  <div class="review-date">September 2023</div>
+                </div>
+                <div class="review-stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+              <p class="review-text">"Dr. Smith has been incredibly helpful in managing my anxiety. Their approach is thoughtful and practical."</p>
+            </div>
+            
+            <div class="review">
+              <div class="review-header">
+                <div class="review-avatar">J</div>
+                <div class="review-info">
+                  <div class="review-name">J.D.</div>
+                  <div class="review-date">August 2023</div>
+                </div>
+                <div class="review-stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+              <p class="review-text">"I've made more progress in 3 months with them than I did in years of previous therapy. Highly recommended!"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Booking Confirmation Modal -->
+<div class="modal" id="booking-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Booking Confirmation</h2>
+      <button class="close-modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="booking-success">
+        <i class="fas fa-check-circle"></i>
+        <h3>Appointment Confirmed!</h3>
+        <p>Your appointment with <span id="modal-professional-name">{{ professional.name }}</span> has been scheduled.</p>
+        
+        <div class="booking-details">
+          <div class="booking-detail">
+            <i class="fas fa-calendar-day"></i>
+            <span id="modal-date">Monday, November 15</span>
+          </div>
+          <div class="booking-detail">
+            <i class="fas fa-clock"></i>
+            <span id="modal-time">9:00 AM</span>
+          </div>
+          <div class="booking-detail">
+            <i class="fas fa-video"></i>
+            <span id="modal-type">Video Call</span>
+          </div>
+        </div>
+        
+        <p class="booking-instructions">You will receive a confirmation email with details about how to join your session.</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="gradient-button" id="close-modal-btn">Close</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{{ url_for('static', filename='js/professionals/booking.js') }}"></script>
+{% endblock %}

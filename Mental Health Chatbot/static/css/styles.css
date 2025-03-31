@@ -308,3 +308,133 @@ body {
         font-size: 1.8rem;
     }
 }
+
+/* Landing Page Layout */
+.landing-container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 2rem;
+}
+
+/* Ensures hero content is centered and above shapes/particles */
+.hero-content {
+    text-align: center;
+    z-index: 1; /* so text/buttons appear above particles and shapes */
+}
+
+/* Main heading */
+.main-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+/* Subtitle text */
+.subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+}
+
+/* Wrapper for the call-to-action button */
+.cta-wrapper {
+    display: inline-block;
+}
+
+/* "Try Aurora" button link */
+.try-aurora-btn {
+    position: relative;
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    color: #fff;
+    background-color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    overflow: hidden;
+    transition: background-color var(--transition-speed);
+    cursor: pointer;
+}
+
+/* Optional text span inside the button (if you want additional styling) */
+.btn-text {
+    position: relative;
+    z-index: 2; /* above the glow layer */
+}
+
+/* Glowing layer behind button text */
+.btn-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    z-index: 1;
+    opacity: 0;
+    transition: opacity var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+/* Glow effect on hover */
+.try-aurora-btn:hover .btn-glow {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+/* Floating shapes container - behind the hero content */
+.floating-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* shapes don’t interfere with clicking */
+    z-index: 0; /* behind hero content */
+    overflow: hidden;
+}
+
+/* Individual shapes */
+.shape {
+    position: absolute;
+    background: var(--secondary-color);
+    opacity: 0.3;
+    border-radius: 50%;
+    animation: float 8s infinite ease-in-out alternate;
+}
+
+/* Example shape sizes and positions */
+.shape-1 {
+    width: 150px;
+    height: 150px;
+    top: 10%;
+    left: 20%;
+}
+
+.shape-2 {
+    width: 200px;
+    height: 200px;
+    bottom: 15%;
+    right: 25%;
+}
+
+.shape-3 {
+    width: 120px;
+    height: 120px;
+    top: 30%;
+    right: 10%;
+}
+
+/* Simple floating animation */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}

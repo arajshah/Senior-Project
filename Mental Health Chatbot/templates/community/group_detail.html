@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}{{ group.name }} - Aurora Groups{% endblock %}
+
+{% block content %}
+<div class="community-page group-detail-page">
+  <div class="community-header">
+    <div class="container">
+      <div class="breadcrumbs">
+        <a href="{{ url_for('community_bp.community_home') }}">Community</a> &gt;
+        <a href="{{ url_for('community_bp.groups') }}">Support Groups</a> &gt;
+        <span>{{ group.name }}</span>
+      </div>
+      <h1 class="page-title">{{ group.name }}</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="group-container">
+      <div class="group-main-content" data-aos="fade-up">
+        <div class="group-description-card">
+          <h3>About This Group</h3>
+          <p>{{ group.description }}</p>
+          
+          <div class="group-info-grid">
+            <div class="info-item">
+              <i class="fas fa-calendar"></i>
+              <div>
+                <h4>Meeting Schedule</h4>
+                <p>{{ group.meeting_schedule }}</p>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <i class="fas fa-user-tie"></i>
+              <div>
+                <h4>Facilitator</h4>
+                <p>{{ group.facilitator }}</p>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <i class="fas fa-users"></i>
+              <div>
+                <h4>Group Size</h4>
+                <p>{{ group.members|length }}/{{ group.max_participants }} members</p>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <i class="fas fa-calendar-alt"></i>
+              <div>
+                <h4>Established</h4>
+                <p>{{ group.created_at.strftime('%B %Y') }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="group-actions">
+          {% if group in session.user.groups %}
+            <button id="leave-group-btn" class="btn-secondary" data-group-id="{{ group.id }}">
+              <i class="fas fa-sign-out-alt"></i> Leave Group
+            </button>
+          {% else %}
+            <button id="join-group-btn" class="gradient-button" data-group-id="{{ group.id }}">
+              <i class="fas fa-plus"></i> Join Group
+            </button>
+          {% endif %}
+          
+          {% if group.meeting_link %}
+            <a href="{{ group.meeting_link }}" target="_blank" class="btn-primary">
+              <i class="fas fa-video"></i> Join Next Meeting
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="group-sidebar" data-aos="fade-up" data-aos-delay="100">
+        <div class="upcoming-meetings">
+          <h3>Upcoming Meetings</h3>
+          <div class="meeting-list">
+            <!-- We would generate these from actual data in a real app -->
+            <div class="meeting-item">
+              <div class="meeting-date">
+                <span class="day">15</span>
+                <span class="month">Nov</span>
+              </div>
+              <div class="meeting-info">
+                <h4>Weekly Check-in</h4>
+                <p><i class="fas fa-clock"></i> 7:00 PM - 8:00 PM</p>
+              </div>
+            </div>
+            
+            <div class="meeting-item">
+              <div class="meeting-date">
+                <span class="day">22</span>
+                <span class="month">Nov</span>
+              </div>
+              <div class="meeting-info">
+                <h4>Weekly Check-in</h4>
+                <p><i class="fas fa-clock"></i> 7:00 PM - 8:00 PM</p>
+              </div>
+            </div>
+            
+            <div class="meeting-item">
+              <div class="meeting-date">
+                <span class="day">29</span>
+                <span class="month">Nov</span>
+              </div>
+              <div class="meeting-info">
+                <h4>Weekly Check-in</h4>
+                <p><i class="fas fa-clock"></i> 7:00 PM - 8:00 PM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="group-members">
+          <h3>Members ({{ group.members|length }})</h3>
+          <div class="members-list">
+            {% for member in group.members %}
+              <div class="member-item">
+                <div class="member-avatar">
+                  {{ member.username[0] }}
+                </div>
+                <div class="member-name">
+                  {% if member.id == session.user_id %}
+                    {{ member.username }} (You)
+                  {% else %}
+                    {{ member.username }}
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{{ url_for('static', filename='js/community/groups.js') }}"></script>
+{% endblock %}

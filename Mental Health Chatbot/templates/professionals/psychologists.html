@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/professionals.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Psychologists - Aurora{% endblock %}
+
+{% block content %}
+<div class="professionals-page directory-page">
+  <div class="professionals-header">
+    <div class="container">
+      <div class="breadcrumbs">
+        <a href="{{ url_for('professional_bp.professionals_home') }}">Professional Help</a> &gt;
+        <span>Psychologists</span>
+      </div>
+      <h1 class="page-title"><i class="fas fa-brain"></i> Psychologists</h1>
+      <p class="subtitle">Connect with licensed psychologists specializing in various therapeutic approaches</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="professionals-toolbar">
+      <div class="search-container">
+        <input type="text" id="professional-search" placeholder="Search by name or specialty..." class="search-input">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+      <div class="filter-container">
+        <select id="specialty-filter" class="filter-select">
+          <option value="all">All Specialties</option>
+          <option value="anxiety">Anxiety</option>
+          <option value="depression">Depression</option>
+          <option value="trauma">Trauma & PTSD</option>
+          <option value="relationships">Relationships</option>
+          <option value="stress">Stress Management</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="professionals-grid" id="professionals-container">
+      {% if professionals %}
+        {% for professional in professionals %}
+          <div class="professional-card" data-aos="fade-up">
+            <div class="professional-header">
+              <div class="professional-avatar">
+                {{ professional.name[0] }}{{ professional.name.split()[-1][0] }}
+              </div>
+              <div class="professional-badges">
+                <span class="badge verified"><i class="fas fa-check-circle"></i> Verified</span>
+              </div>
+            </div>
+            
+            <div class="professional-info">
+              <h3>{{ professional.name }}</h3>
+              <p class="professional-title">{{ professional.credentials }}</p>
+              <div class="professional-specialties">
+                {% for specialty in professional.specialties.split(',') %}
+                  <span class="specialty-tag">{{ specialty.strip() }}</span>
+                {% endfor %}
+              </div>
+              <p class="professional-bio">{{ professional.bio|truncate(150) }}</p>
+            </div>
+            
+            <div class="professional-footer">
+              <a href="{{ url_for('professional_bp.professional_detail', professional_id=professional.id) }}" class="card-link">
+                View Profile <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state" data-aos="fade-up">
+          <i class="fas fa-user-md"></i>
+          <p>No psychologists available at this time</p>
+          <p class="empty-suggestion">Please check back soon as we expand our network</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{{ url_for('static', filename='js/professionals/directory.js') }}"></script>
+{% endblock %}

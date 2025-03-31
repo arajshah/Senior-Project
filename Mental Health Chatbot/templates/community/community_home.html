@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Community - Aurora{% endblock %}
+
+{% block content %}
+<div class="community-page">
+  <div class="community-header">
+    <div class="container">
+      <h1 class="page-title"><i class="fas fa-users"></i> Aurora Community</h1>
+      <p class="subtitle">Connect with others on similar wellness journeys</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="community-grid">
+      <!-- Forums Section -->
+      <div class="community-section" data-aos="fade-up">
+        <div class="section-header">
+          <h2><i class="fas fa-comment-dots"></i> Discussion Forums</h2>
+          <a href="{{ url_for('community_bp.forums') }}" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="forums-preview">
+          {% if forums %}
+            {% for forum in forums %}
+              <div class="forum-card">
+                <h3>{{ forum.title }}</h3>
+                <p>{{ forum.description }}</p>
+                <div class="forum-stats">
+                  <span><i class="fas fa-comment"></i> {{ forum.posts|length }} posts</span>
+                </div>
+                <a href="{{ url_for('community_bp.forum_detail', forum_id=forum.id) }}" class="card-link">
+                  Join Discussion <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="empty-state">
+              <i class="fas fa-comment-slash"></i>
+              <p>No forums available yet</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Support Groups Section -->
+      <div class="community-section" data-aos="fade-up" data-aos-delay="100">
+        <div class="section-header">
+          <h2><i class="fas fa-user-friends"></i> Support Groups</h2>
+          <a href="{{ url_for('community_bp.groups') }}" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="groups-preview">
+          {% if groups %}
+            {% for group in groups %}
+              <div class="group-card">
+                <h3>{{ group.name }}</h3>
+                <p>{{ group.description }}</p>
+                <div class="group-info">
+                  <span><i class="fas fa-calendar"></i> {{ group.meeting_schedule }}</span>
+                  <span><i class="fas fa-user-tie"></i> {{ group.facilitator }}</span>
+                </div>
+                <a href="{{ url_for('community_bp.group_detail', group_id=group.id) }}" class="card-link">
+                  View Group <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="empty-state">
+              <i class="fas fa-users-slash"></i>
+              <p>No support groups available yet</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Events Section -->
+      <div class="community-section" data-aos="fade-up" data-aos-delay="200">
+        <div class="section-header">
+          <h2><i class="fas fa-calendar-check"></i> Upcoming Events</h2>
+          <a href="{{ url_for('community_bp.events') }}" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="events-preview">
+          {% if events %}
+            {% for event in events %}
+              <div class="event-card">
+                <div class="event-date">
+                  <span class="day">{{ event.date.strftime('%d') }}</span>
+                  <span class="month">{{ event.date.strftime('%b') }}</span>
+                </div>
+                <div class="event-details">
+                  <h3>{{ event.title }}</h3>
+                  <p class="event-info"><i class="fas fa-clock"></i> {{ event.date.strftime('%I:%M %p') }} • {{ event.duration_minutes }} mins</p>
+                  <p class="event-info"><i class="fas fa-user"></i> Hosted by {{ event.host }}</p>
+                  <a href="{{ url_for('community_bp.event_detail', event_id=event.id) }}" class="card-link">
+                    View Details <i class="fas fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="empty-state">
+              <i class="fas fa-calendar-times"></i>
+              <p>No upcoming events</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    AOS.init();
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Forums - Aurora Community{% endblock %}
+
+{% block content %}
+<div class="community-page forums-page">
+  <div class="community-header">
+    <div class="container">
+      <h1 class="page-title"><i class="fas fa-comment-dots"></i> Discussion Forums</h1>
+      <p class="subtitle">Share experiences and get advice from others on similar journeys</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="community-toolbar">
+      <div class="search-container">
+        <input type="text" id="forum-search" placeholder="Search forums..." class="search-input">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+    </div>
+
+    <div class="forums-grid" id="forums-container">
+      {% if forums %}
+        {% for forum in forums %}
+          <div class="forum-card" data-aos="fade-up">
+            <h3>{{ forum.title }}</h3>
+            <p>{{ forum.description }}</p>
+            <div class="forum-stats">
+              <span><i class="fas fa-comment"></i> {{ forum.posts|length }} posts</span>
+              <span><i class="fas fa-clock"></i> Last activity: {{ forum.created_at.strftime('%b %d, %Y') }}</span>
+            </div>
+            <a href="{{ url_for('community_bp.forum_detail', forum_id=forum.id) }}" class="card-link">
+              Join Discussion <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state" data-aos="fade-up">
+          <i class="fas fa-comment-slash"></i>
+          <p>No forums available yet</p>
+          <p class="empty-suggestion">Check back soon or suggest a topic to our moderators</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{{ url_for('static', filename='js/community/forums.js') }}"></script>
+{% endblock %}

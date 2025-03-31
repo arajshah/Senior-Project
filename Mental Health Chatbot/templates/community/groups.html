@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Support Groups - Aurora Community{% endblock %}
+
+{% block content %}
+<div class="community-page groups-page">
+  <div class="community-header">
+    <div class="container">
+      <h1 class="page-title"><i class="fas fa-user-friends"></i> Support Groups</h1>
+      <p class="subtitle">Join virtual support groups led by experienced facilitators</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="community-toolbar">
+      <div class="search-container">
+        <input type="text" id="group-search" placeholder="Search groups..." class="search-input">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+      <div class="filter-container">
+        <select id="group-filter" class="filter-select">
+          <option value="all">All Groups</option>
+          <option value="anxiety">Anxiety</option>
+          <option value="depression">Depression</option>
+          <option value="stress">Stress Management</option>
+          <option value="grief">Grief & Loss</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="groups-grid" id="groups-container">
+      {% if groups %}
+        {% for group in groups %}
+          <div class="group-card" data-aos="fade-up">
+            <h3>{{ group.name }}</h3>
+            <p>{{ group.description }}</p>
+            <div class="group-details">
+              <div class="group-info">
+                <span><i class="fas fa-calendar"></i> {{ group.meeting_schedule }}</span>
+                <span><i class="fas fa-user-tie"></i> Facilitator: {{ group.facilitator }}</span>
+                <span><i class="fas fa-users"></i> {{ group.members|length }}/{{ group.max_participants }} members</span>
+              </div>
+            </div>
+            <a href="{{ url_for('community_bp.group_detail', group_id=group.id) }}" class="card-link">
+              View Group <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state" data-aos="fade-up">
+          <i class="fas fa-users-slash"></i>
+          <p>No support groups available yet</p>
+          <p class="empty-suggestion">Check back soon for upcoming groups</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{{ url_for('static', filename='js/community/groups.js') }}"></script>
+{% endblock %}

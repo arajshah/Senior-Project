@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/professionals.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Professional Help - Aurora{% endblock %}
+
+{% block content %}
+<div class="professionals-page">
+  <div class="professionals-header">
+    <div class="container">
+      <h1 class="page-title"><i class="fas fa-user-md"></i> Professional Help</h1>
+      <p class="subtitle">Connect with licensed mental health professionals</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="category-cards">
+      <!-- Psychologists Card -->
+      <div class="category-card" data-aos="fade-up">
+        <div class="category-icon">
+          <i class="fas fa-brain"></i>
+        </div>
+        <h2>Psychologists</h2>
+        <p>Specialized in cognitive behavioral therapy, talk therapy, and psychological assessment.</p>
+        <ul class="category-features">
+          <li><i class="fas fa-check"></i> Therapy for anxiety, depression, trauma</li>
+          <li><i class="fas fa-check"></i> Cognitive behavioral techniques</li>
+          <li><i class="fas fa-check"></i> Psychological evaluation</li>
+        </ul>
+        <a href="{{ url_for('professional_bp.psychologists') }}" class="gradient-button">
+          Browse Psychologists <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- Psychiatrists Card -->
+      <div class="category-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="category-icon">
+          <i class="fas fa-pills"></i>
+        </div>
+        <h2>Psychiatrists</h2>
+        <p>Medical doctors specializing in mental health, including medication management.</p>
+        <ul class="category-features">
+          <li><i class="fas fa-check"></i> Medication consultation</li>
+          <li><i class="fas fa-check"></i> Treatment for severe conditions</li>
+          <li><i class="fas fa-check"></i> Medical approach to mental health</li>
+        </ul>
+        <a href="{{ url_for('professional_bp.psychiatrists') }}" class="gradient-button">
+          Browse Psychiatrists <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- Counselors Card -->
+      <div class="category-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="category-icon">
+          <i class="fas fa-comment-alt"></i>
+        </div>
+        <h2>Counselors</h2>
+        <p>Trained in supportive listening, guidance, and practical coping strategies.</p>
+        <ul class="category-features">
+          <li><i class="fas fa-check"></i> Relationship counseling</li>
+          <li><i class="fas fa-check"></i> Career guidance</li>
+          <li><i class="fas fa-check"></i> Stress management techniques</li>
+        </ul>
+        <a href="{{ url_for('professional_bp.counselors') }}" class="gradient-button">
+          Browse Counselors <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="professionals-info" data-aos="fade-up">
+      <h2>How Professional Help Works</h2>
+      
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <div class="step-icon"><i class="fas fa-search"></i></div>
+          <h3>Browse Professionals</h3>
+          <p>Explore profiles of licensed mental health professionals with various specialties.</p>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <div class="step-icon"><i class="fas fa-calendar-alt"></i></div>
+          <h3>Book an Appointment</h3>
+          <p>Select a convenient time slot from a professional's available schedule.</p>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <div class="step-icon"><i class="fas fa-video"></i></div>
+          <h3>Virtual Session</h3>
+          <p>Connect via secure video call for your confidential therapy session.</p>
+        </div>
+      </div>
+      
+      <div class="disclaimer">
+        <i class="fas fa-info-circle"></i>
+        <p><strong>Important:</strong> Aurora connects you with licensed professionals but is not a substitute for emergency services. If you're experiencing a crisis, please call your local emergency number or a crisis helpline immediately.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    AOS.init();
+  });
+</script>
+{% endblock %}
