@@ -3,21 +3,22 @@
 {% block head %}
 {{ super() }}
 <link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/forums.css') }}" rel="stylesheet">
 {% endblock %}
 
-{% block title %}{{ forum.title }} - Aurora Forums{% endblock %}
+{% block title %}{{ topic.title }} - Aurora Forums{% endblock %}
 
 {% block content %}
-<div class="community-page forum-detail-page">
+<div class="community-page forums-page forum-detail-page">
   <div class="community-header">
     <div class="container">
       <div class="breadcrumbs">
         <a href="{{ url_for('community_bp.community_home') }}">Community</a> &gt;
         <a href="{{ url_for('community_bp.forums') }}">Forums</a> &gt;
-        <span>{{ forum.title }}</span>
+        <span>{{ topic.title }}</span>
       </div>
-      <h1 class="page-title">{{ forum.title }}</h1>
-      <p class="subtitle">{{ forum.description }}</p>
+      <h1 class="page-title">{{ topic.title }}</h1>
+      <p class="subtitle">{{ topic.description }}</p>
     </div>
   </div>
 
@@ -51,20 +52,23 @@
     <div class="forum-posts">
       {% if posts %}
         {% for post in posts %}
-          <div class="post-card" data-aos="fade-up">
+          <div class="post-card" data-aos="fade-up" data-aos-delay="{{ loop.index * 50 }}">
             <div class="post-header">
               <div class="post-metadata">
-                <span class="post-author">Posted by Anonymous</span>
+                <span class="post-author">Posted by {{ post.author.name }}</span>
                 <span class="post-date">{{ post.created_at.strftime('%b %d, %Y at %I:%M %p') }}</span>
               </div>
-              <h3 class="post-title">{{ post.title }}</h3>
+              <h3 class="post-title">{{ post.content|truncate(50) }}</h3>
             </div>
             <div class="post-content">
               <p>{{ post.content }}</p>
             </div>
             <div class="post-actions">
               <button class="reply-btn" data-post-id="{{ post.id }}">
-                <i class="fas fa-reply"></i> Reply ({{ post.replies|length }})
+                <i class="fas fa-reply"></i> Reply
+              </button>
+              <button class="like-btn" data-post-id="{{ post.id }}">
+                <i class="fas fa-heart"></i> Like ({{ post.likes }})
               </button>
             </div>
             
@@ -73,7 +77,7 @@
                 {% for reply in post.replies %}
                   <div class="reply">
                     <div class="reply-metadata">
-                      <span class="reply-author">Anonymous</span>
+                      <span class="reply-author">{{ reply.author.name }}</span>
                       <span class="reply-date">{{ reply.created_at.strftime('%b %d, %Y at %I:%M %p') }}</span>
                     </div>
                     <div class="reply-content">
@@ -107,5 +111,102 @@
 {% block scripts %}
 {{ super() }}
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out',
+      once: true
+    });
+    
+    // Toggle post form visibility
+    document.getElementById('create-post-btn').addEventListener('click', function() {
+      document.getElementById('create-post-form').style.display = 'block';
+      this.style.display = 'none';
+    });
+    
+    document.getElementById('cancel-post').addEventListener('click', function() {
+      document.getElementById('create-post-form').style.display = 'none';
+      document.getElementById('create-post-btn').style.display = 'block';
+    });
+    
+    // Toggle replies container visibility
+    document.querySelectorAll('.reply-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const postId = this.dataset.postId;
+        const repliesContainer = document.getElementById('replies-' + postId);
+        if (repliesContainer.style.display === 'none') {
+          repliesContainer.style.display = 'block';
+        } else {
+          repliesContainer.style.display = 'none';
+        }
+      });
+    });
+    
+    // Handle post likes
+    document.querySelectorAll('.like-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const postId = this.dataset.postId;
+        const likeIcon = this.querySelector('i');
+        const likeText = this.textContent.trim();
+        
+        // Get current like count
+        const currentLikes = parseInt(likeText.match(/\d+/)[0]);
+        
+        // Check if already liked (using localStorage to persist state)
+        const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '{}');
+        
+        if (likedPosts[postId]) {
+          // Unlike
+          likedPosts[postId] = false;
+          this.classList.remove('liked');
+          this.innerHTML = `<i class="fas fa-heart"></i> Like (${currentLikes - 1})`;
+        } else {
+          // Like
+          likedPosts[postId] = true;
+          this.classList.add('liked');
+          this.innerHTML = `<i class="fas fa-heart animate"></i> Liked (${currentLikes + 1})`;
+          
+          // In a real app, this would be an API call
+          // For now, we'll just simulate it with localStorage
+          
+          // Add animation class to heart icon
+          const newIcon = this.querySelector('i');
+          newIcon.classList.add('animate');
+          
+          // Remove animation class after animation completes
+          setTimeout(() => {
+            newIcon.classList.remove('animate');
+          }, 700);
+        }
+        
+        // Save updated likes to localStorage
+        localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
+        
+        // In a real app, make an API call to update like count in the database
+        // fetch('/api/posts/' + postId + '/like', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   }
+        // })
+        // .then(response => response.json())
+        // .then(data => console.log('Success:', data))
+        // .catch(error => console.error('Error:', error));
+      });
+      
+      // Check if post was previously liked (on page load)
+      const postId = btn.dataset.postId;
+      const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '{}');
+      
+      if (likedPosts[postId]) {
+        const likeText = btn.textContent.trim();
+        const currentLikes = parseInt(likeText.match(/\d+/)[0]);
+        btn.classList.add('liked');
+        btn.innerHTML = `<i class="fas fa-heart"></i> Liked (${currentLikes})`;
+      }
+    });
+  });
+</script>
 <script src="{{ url_for('static', filename='js/community/forums.js') }}"></script>
 {% endblock %}

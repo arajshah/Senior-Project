@@ -1,0 +1,632 @@
+/* Forums Pages Specific Styling */
+/* Builds on top of community.css */
+
+/* Forums Page Header Enhancement */
+.forums-page .community-header {
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.85), rgba(236, 72, 153, 0.85)),
+                url('../images/forums-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 3.7rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .forums-page .community-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 30%, rgba(167, 139, 250, 0.4), transparent 60%);
+    pointer-events: none;
+  }
+  
+  .forums-page .community-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent, rgb(20, 42, 132));
+    pointer-events: none;
+  }
+  
+  .forums-page .page-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+    color: white; /* Add this line */
+    -webkit-text-fill-color: white; /* Add this line to override any gradient */
+  }
+  
+  .forums-page .subtitle {
+    font-size: 1.5rem;
+    max-width: 700px;
+    position: relative;
+    z-index: 2;
+    opacity: 0.9;
+  }
+  
+  /* Search Bar Enhancements */
+  .forums-page .community-toolbar {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  
+  .forums-page .search-container {
+    width: 100%;
+  }
+  
+  .forums-page .search-input {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    padding: 0.9rem 1.25rem 0.9rem 3rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .forums-page .search-input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(236, 72, 153, 0.5);
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.25);
+  }
+  
+  .forums-page .search-icon {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  /* Forum Cards Enhancements */
+  .forums-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+  
+  .forum-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 2rem;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .forum-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(236, 72, 153, 0.1));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+  }
+  
+  .forum-card:hover::before {
+    opacity: 1;
+  }
+  
+  .forum-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .forum-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: white;
+    line-height: 1.3;
+  }
+  
+  .forum-card p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+  
+  .forum-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .forum-stats span {
+    display: flex;
+    align-items: center;
+  }
+  
+  .forum-stats i {
+    color: var(--community-secondary);
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+  }
+  
+  .forum-card .gradient-button {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    background: linear-gradient(90deg, var(--community-primary), var(--community-secondary));
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+    transition: all 0.3s ease;
+    margin-top: auto;
+  }
+  
+  .forum-card .gradient-button:hover {
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  .forum-card .gradient-button i {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .forum-card .gradient-button:hover i {
+    transform: translateX(4px);
+  }
+  
+  /* Forum Detail Page Styles */
+  .forum-detail-page .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .forum-detail-page .subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 800px;
+  }
+  
+  .create-post-container {
+    margin-bottom: 2rem;
+  }
+  
+  .create-post-container button {
+    background: linear-gradient(90deg, var(--community-primary), var(--community-secondary));
+    color: white;
+    padding: 0.9rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+  }
+  
+  .create-post-container button:hover {
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  .create-post-container button i {
+    margin-right: 0.75rem;
+  }
+  
+  .post-form-container {
+    margin-bottom: 2.5rem;
+  }
+  
+  .post-form {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 2rem;
+  }
+  
+  .post-form h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+  }
+  
+  .post-form h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--community-primary), var(--community-secondary));
+    border-radius: 3px;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.9rem 1.25rem;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(236, 72, 153, 0.5);
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.25);
+    outline: none;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  .form-actions button {
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .form-actions .btn-secondary {
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .form-actions .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+  }
+  
+  .form-actions .btn-primary {
+    background: linear-gradient(90deg, var(--community-primary), var(--community-secondary));
+    color: white;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+  }
+  
+  .form-actions .btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  /* Post Card Enhancements */
+  .forum-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .post-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+  
+  .post-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  
+  .post-header {
+    margin-bottom: 1.25rem;
+  }
+  
+  .post-metadata {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .post-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .post-content {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .post-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .reply-btn {
+    background: none;
+    border: none;
+    color: var(--community-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+  
+  .reply-btn:hover {
+    background: rgba(236, 72, 153, 0.1);
+    color: white;
+  }
+  
+  .reply-btn i {
+    margin-right: 0.75rem;
+  }
+  
+  /* Replies Styling */
+  .replies-container {
+    margin-top: 1.5rem;
+    padding-left: 1.5rem;
+    border-left: 2px solid rgba(236, 72, 153, 0.3);
+  }
+  
+  .reply {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  
+  .reply:last-child {
+    border-bottom: none;
+  }
+  
+  .reply-metadata {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .reply-content {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+  }
+  
+  .reply-form {
+    margin-top: 1.5rem;
+  }
+  
+  .reply-form textarea {
+    width: 100%;
+    padding: 0.9rem 1.25rem;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    color: white;
+    font-size: 0.95rem;
+    resize: vertical;
+    min-height: 100px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .reply-form textarea:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(236, 72, 153, 0.5);
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.25);
+    outline: none;
+  }
+  
+  .reply-form button {
+    float: right;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(90deg, var(--community-primary), var(--community-secondary));
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+  }
+  
+  .reply-form button:hover {
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  /* Empty State Styling */
+  .empty-state {
+    padding: 3.5rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    text-align: center;
+  }
+  
+  .empty-state i {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.3);
+    opacity: 0.8;
+  }
+  
+  .empty-state p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.5rem;
+  }
+  
+  .empty-suggestion {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Like Button Styling */
+.like-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .like-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(236, 72, 153, 0.1);
+    border-radius: 0.5rem;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: -1;
+  }
+  
+  .like-btn:hover {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .like-btn:hover::before {
+    transform: scaleX(1);
+  }
+  
+  .like-btn i {
+    margin-right: 0.75rem;
+    color: var(--community-secondary);
+    font-size: 1.1rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .like-btn:hover i {
+    transform: scale(1.2);
+  }
+  
+  .like-btn.liked {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .like-btn.liked i {
+    color: #ec4899; /* Pink color */
+    transform: scale(1.2);
+  }
+  
+  .like-btn.liked::before {
+    transform: scaleX(1);
+  }
+  
+  /* Add heart animation */
+  @keyframes heart-beat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.3); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  
+  .like-btn.liked i.animate {
+    animation: heart-beat 0.6s ease-in-out;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 991px) {
+    .forums-grid {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .forums-page .page-title {
+      font-size: 2.2rem;
+    }
+    
+    .forums-page .subtitle {
+      font-size: 1.05rem;
+    }
+    
+    .forums-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .forum-card {
+      padding: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .forums-page .community-header {
+      padding: 3rem 0;
+    }
+    
+    .post-metadata {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+    }
+    
+    .form-actions button {
+      width: 100%;
+    }
+  }

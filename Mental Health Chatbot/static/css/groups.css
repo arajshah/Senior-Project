@@ -1,0 +1,566 @@
+/* Groups Pages Specific Styling */
+/* Builds on top of community.css */
+
+/* Groups Page Header Enhancement */
+body .groups-page .community-header {
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.85), rgba(124, 58, 237, 0.85), rgba(167, 139, 250, 0.85)),
+                url('../images/groups-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 3.7rem 0;
+    position: relative;
+    overflow: hidden;
+    border-bottom: none;
+    z-index: 1;
+    box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.5);
+  }
+  
+  body .groups-page .community-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/geometric-pattern.png'), radial-gradient(circle at 30% 70%, rgba(167, a139, 250, 0.7), transparent 70%);
+    opacity: 0.15;
+    z-index: -1;
+    animation: float 20s infinite alternate ease-in-out;
+  }
+  
+  body .groups-page .community-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent, rgb(75, 30, 80));
+    pointer-events: none;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-15px) rotate(1deg); }
+    100% { transform: translateY(5px) rotate(-1deg); }
+  }
+  
+  body .groups-page .community-header .container {
+    position: relative;
+    z-index: 10;
+  }
+  
+  body .groups-page .page-title {
+    font-size: 3rem !important;
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    margin-bottom: 1rem !important;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+    animation: glow 3s infinite alternate;
+    font-weight: 900 !important;
+    letter-spacing: -1px !important;
+  }
+  
+  body .groups-page .page-title i {
+    margin-right: 0.5rem;
+    transform-origin: center;
+    animation: pulse 2s infinite ease-in-out;
+  }
+  
+  body .groups-page .subtitle {
+    font-size: 1.5rem !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    max-width: 700px !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+    animation: fadeSlideUp 0.8s ease-out;
+  }
+  
+  /* Pulsing effect for icons */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes glow {
+    0% { text-shadow: 0 0 10px rgba(79, 70, 229, 0.1), 0 0 20px rgba(79, 70, 229, 0.1); }
+    100% { text-shadow: 0 0 15px rgba(79, 70, 229, 0.5), 0 0 30px rgba(79, 70, 229, 0.3); }
+  }
+  
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Interactive effect on hover */
+  body .groups-page .community-header:hover::before {
+    animation-play-state: paused;
+  }
+  
+  /* Filter and Search Bar Enhancements */
+  .groups-page .community-toolbar {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  
+  .groups-page .search-input {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    padding: 0.9rem 1.25rem 0.9rem 3rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .groups-page .search-input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(167, 139, 250, 0.5);
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.25);
+  }
+  
+  .groups-page .search-icon {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .groups-page .filter-select {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    padding: 0.9rem 1.25rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .groups-page .filter-select:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(167, 139, 250, 0.5);
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.25);
+  }
+  
+  /* Group Cards Enhancements */
+  .groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+  
+  .group-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 2rem;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .group-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, var(--community-primary), var(--community-secondary));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  
+  .group-card:hover::before {
+    transform: scaleX(1);
+  }
+  
+  .group-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .group-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: white;
+  }
+  
+  .group-card p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .group-details {
+    margin-bottom: 1.5rem;
+  }
+  
+  .group-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .group-info span {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+  }
+  
+  .group-info i {
+    color: var(--community-secondary);
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+  }
+  
+  .group-card .gradient-button {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    background: linear-gradient(90deg, var(--community-primary), var(--community-secondary));
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .group-card .gradient-button:hover {
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  .group-card .gradient-button i {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .group-card .gradient-button:hover i {
+    transform: translateX(4px);
+  }
+  
+  /* Group Detail Page Styles */
+  .group-detail-page .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .group-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .group-description-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .group-description-card h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+  }
+  
+  .group-description-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--community-primary), var(--community-secondary));
+    border-radius: 3px;
+  }
+  
+  .group-description-card p {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .group-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .info-item i {
+    color: var(--community-secondary);
+    font-size: 1.5rem;
+    padding-top: 0.25rem;
+  }
+  
+  .info-item h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .info-item p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0;
+  }
+  
+  .group-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .group-actions button,
+  .group-actions a {
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .group-actions .gradient-button,
+  .group-actions .btn-primary {
+    background: linear-gradient(90deg, var(--community-primary), var(--community-secondary));
+    color: white;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+    border: none;
+  }
+  
+  .group-actions .gradient-button:hover,
+  .group-actions .btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  .group-actions .btn-secondary {
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .group-actions .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+  }
+  
+  .group-actions i {
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+  }
+  
+  /* Group Sidebar - Upcoming Meetings */
+  .group-sidebar > div {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 1.75rem;
+    margin-bottom: 2rem;
+  }
+  
+  .group-sidebar h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+  }
+  
+  .group-sidebar h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--community-primary), var(--community-secondary));
+    border-radius: 3px;
+  }
+  
+  .meeting-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .meeting-item {
+    display: flex;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .meeting-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .meeting-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    background: rgba(79, 70, 229, 0.2);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
+  
+  .meeting-date .day {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+  }
+  
+  .meeting-date .month {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.25rem;
+  }
+  
+  .meeting-info {
+    flex: 1;
+  }
+  
+  .meeting-info h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .meeting-info p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+  }
+  
+  .meeting-info i {
+    margin-right: 0.5rem;
+    color: var(--community-secondary);
+  }
+  
+  /* Group Members List */
+  .members-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .member-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+  }
+  
+  .member-item:hover {
+    background: rgba(255, 255, 255, 0.07);
+  }
+  
+  .member-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--community-primary), var(--community-secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+    box-shadow: 0 3px 10px rgba(79, 70, 229, 0.3);
+  }
+  
+  .member-name {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 991px) {
+    .group-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .group-sidebar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .groups-grid {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+  }
+  
+  @media (max-width: 767px) {
+    body .groups-page .page-title {
+      font-size: 2.2rem;
+    }
+    
+    body .groups-page .subtitle {
+      font-size: 1.05rem;
+    }
+    
+    .group-card {
+      padding: 1.5rem;
+    }
+    
+    .group-info-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .groups-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    body .groups-page .community-header {
+      padding: 3rem 0;
+    }
+    
+    .group-actions {
+      flex-direction: column;
+    }
+    
+    .group-actions button,
+    .group-actions a {
+      width: 100%;
+    }
+  }

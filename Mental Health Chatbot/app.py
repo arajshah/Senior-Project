@@ -1,4 +1,6 @@
 from flask import Flask, render_template
+from flask_bootstrap import Bootstrap
+from flask_login import LoginManager  # Add this import
 from config import config
 from db import db
 
@@ -8,8 +10,19 @@ def create_app():
     # Load configuration
     app.config.from_object(config['development'])
 
-    # Initialize the database
+    # Initialize extensions
+    bootstrap = Bootstrap(app)
     db.init_app(app)
+    
+    # Initialize Flask-Login
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+    login_manager.login_view = 'user_bp.login'
+    
+    @login_manager.user_loader
+    def load_user(user_id):
+        from models.user import User  # Import here to avoid circular imports
+        return User.query.get(int(user_id))
 
     # Import Blueprints
     from controllers.pages_controller import pages_bp

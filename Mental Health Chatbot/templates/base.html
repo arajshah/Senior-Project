@@ -47,6 +47,47 @@
                                 <i class="fas fa-book"></i> Journal
                             </a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="communityDropdown" role="button" data-bs-toggle="dropdown">
+                              Community
+                            </a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="{{ url_for('community_bp.community_home') }}">
+                                <i class="fas fa-users"></i> Community Home
+                              </a>
+                              <a class="dropdown-item" href="{{ url_for('community_bp.forums') }}">
+                                <i class="fas fa-comment-dots"></i> Discussion Forums
+                              </a>
+                              <a class="dropdown-item" href="{{ url_for('community_bp.groups') }}">
+                                <i class="fas fa-user-friends"></i> Support Groups
+                              </a>
+                              <a class="dropdown-item" href="{{ url_for('community_bp.events') }}">
+                                <i class="fas fa-calendar-alt"></i> Virtual Events
+                              </a>
+                            </div>
+                          </li>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="professionalDropdown" role="button" data-bs-toggle="dropdown">
+                              Professional Help
+                            </a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="{{ url_for('professional_bp.professionals_home') }}">
+                                <i class="fas fa-user-md"></i> Find Help
+                              </a>
+                              <a class="dropdown-item" href="{{ url_for('professional_bp.psychologists_page') }}">
+                                <i class="fas fa-brain"></i> Psychologists
+                              </a>
+                              <a class="dropdown-item" href="{{ url_for('professional_bp.psychiatrists_page') }}">
+                                <i class="fas fa-pills"></i> Psychiatrists
+                              </a>
+                              <a class="dropdown-item" href="{{ url_for('professional_bp.counselors_page') }}">
+                                <i class="fas fa-comment-alt"></i> Counselors
+                              </a>
+                            </div>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('resources_bp.resources') }}">Resources</a>
+                          </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('user_bp.logout') }}">
                                 <i class="fas fa-sign-out-alt"></i> Logout

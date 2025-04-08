@@ -3,6 +3,7 @@
 {% block head %}
 {{ super() }}
 <link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/forums.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}Forums - Aurora Community{% endblock %}
@@ -25,16 +26,16 @@
     </div>
 
     <div class="forums-grid" id="forums-container">
-      {% if forums %}
-        {% for forum in forums %}
-          <div class="forum-card" data-aos="fade-up">
-            <h3>{{ forum.title }}</h3>
-            <p>{{ forum.description }}</p>
+      {% if topics %}
+        {% for topic in topics %}
+          <div class="forum-card" data-aos="fade-up" data-aos-delay="{{ loop.index * 50 }}">
+            <h3>{{ topic.title }}</h3>
+            <p>{{ topic.description }}</p>
             <div class="forum-stats">
-              <span><i class="fas fa-comment"></i> {{ forum.posts|length }} posts</span>
-              <span><i class="fas fa-clock"></i> Last activity: {{ forum.created_at.strftime('%b %d, %Y') }}</span>
+              <span><i class="fas fa-comment"></i> {{ topic.post_count }} posts</span>
+              <span><i class="fas fa-clock"></i> Last activity: {{ topic.last_activity.strftime('%b %d, %Y') }}</span>
             </div>
-            <a href="{{ url_for('community_bp.forum_detail', forum_id=forum.id) }}" class="card-link">
+            <a href="{{ url_for('community_bp.forum_detail', topic_id=topic.id) }}" class="gradient-button">
               Join Discussion <i class="fas fa-arrow-right"></i>
             </a>
           </div>
@@ -54,5 +55,14 @@
 {% block scripts %}
 {{ super() }}
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out',
+      once: true
+    });
+  });
+</script>
 <script src="{{ url_for('static', filename='js/community/forums.js') }}"></script>
 {% endblock %}

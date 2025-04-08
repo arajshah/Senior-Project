@@ -78,20 +78,20 @@
                     </div>
                     <p>Connect with others on similar wellness journeys. Share experiences, get advice, and build a support network.</p>
                     <div class="community-features">
-                        <div class="community-feature">
+                        <a href="{{ url_for('community_bp.forums') }}" class="gradient-button">
                             <i class="fas fa-comment-dots"></i>
                             <span>Discussion Forums</span>
-                        </div>
-                        <div class="community-feature">
+                        </a>
+                        <a href="{{ url_for('community_bp.groups') }}" class="gradient-button">
                             <i class="fas fa-user-friends"></i>
                             <span>Support Groups</span>
-                        </div>
-                        <div class="community-feature">
+                        </a>
+                        <a href="{{ url_for('community_bp.events') }}" class="gradient-button">
                             <i class="fas fa-calendar-check"></i>
                             <span>Virtual Events</span>
-                        </div>
+                        </a>
                     </div>
-                    <a href="#" class="gradient-button">
+                    <a href="{{ url_for('community_bp.community_home') }}" class="gradient-button">
                         Join Community <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -106,29 +106,31 @@
                     </div>
                     <p>Get connected with licensed mental health professionals who can provide specialized care and support.</p>
                     <div class="professionals-list">
-                        <div class="professional-type">
+                        <a href="{{ url_for('professional_bp.psychologists_page') }}" class="gradient-button professional-type">
                             <i class="fas fa-brain"></i>
                             <div>
                                 <h4>Psychologists</h4>
                                 <span>For therapy and psychological assessment</span>
                             </div>
-                        </div>
-                        <div class="professional-type">
+                        </a>
+                    
+                        <a href="{{ url_for('professional_bp.psychiatrists_page') }}" class="gradient-button professional-type">
                             <i class="fas fa-pills"></i>
                             <div>
                                 <h4>Psychiatrists</h4>
                                 <span>For medication management and treatment</span>
                             </div>
-                        </div>
-                        <div class="professional-type">
+                        </a>
+                    
+                        <a href="{{ url_for('professional_bp.counselors_page') }}" class="gradient-button professional-type">
                             <i class="fas fa-hand-holding-heart"></i>
                             <div>
                                 <h4>Counselors</h4>
                                 <span>For ongoing guidance and support</span>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                    <a href="#" class="gradient-button">
+                    <a href="{{ url_for('professional_bp.professionals_home') }}" class="gradient-button">
                         Find Professional <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>

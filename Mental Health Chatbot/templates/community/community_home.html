@@ -3,6 +3,7 @@
 {% block head %}
 {{ super() }}
 <link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/community_home.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}Community - Aurora{% endblock %}
@@ -12,7 +13,7 @@
   <div class="community-header">
     <div class="container">
       <h1 class="page-title"><i class="fas fa-users"></i> Aurora Community</h1>
-      <p class="subtitle">Connect with others on similar wellness journeys</p>
+      <p class="subtitle">Connect with others on similar wellness journeys, share experiences, and find support</p>
     </div>
   </div>
 
@@ -25,15 +26,16 @@
           <a href="{{ url_for('community_bp.forums') }}" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="forums-preview">
-          {% if forums %}
-            {% for forum in forums %}
+          {% if trending_topics %}
+            {% for trending_topic in trending_topics %}
               <div class="forum-card">
-                <h3>{{ forum.title }}</h3>
-                <p>{{ forum.description }}</p>
+                <h3>{{ trending_topic.title }}</h3>
+                <p>{{ trending_topic.description }}</p>
                 <div class="forum-stats">
-                  <span><i class="fas fa-comment"></i> {{ forum.posts|length }} posts</span>
+                  <span><i class="fas fa-comment"></i> {{ trending_topic.post_count }} posts</span>
+                  <span><i class="fas fa-clock"></i> Last activity: {{ trending_topic.last_activity.strftime('%b %d, %H:%M') }}</span>
                 </div>
-                <a href="{{ url_for('community_bp.forum_detail', forum_id=forum.id) }}" class="card-link">
+                <a href="{{ url_for('community_bp.forum_detail', topic_id=trending_topic.id) }}" class="gradient-button">
                   Join Discussion <i class="fas fa-arrow-right"></i>
                 </a>
               </div>
@@ -54,16 +56,17 @@
           <a href="{{ url_for('community_bp.groups') }}" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="groups-preview">
-          {% if groups %}
-            {% for group in groups %}
+          {% if featured_groups %}
+            {% for featured_group in featured_groups %}
               <div class="group-card">
-                <h3>{{ group.name }}</h3>
-                <p>{{ group.description }}</p>
+                <h3>{{ featured_group.name }}</h3>
+                <p>{{ featured_group.description }}</p>
                 <div class="group-info">
-                  <span><i class="fas fa-calendar"></i> {{ group.meeting_schedule }}</span>
-                  <span><i class="fas fa-user-tie"></i> {{ group.facilitator }}</span>
+                  <span><i class="fas fa-calendar"></i> {{ featured_group.meeting_frequency }}</span>
+                  <span><i class="fas fa-user-tie"></i> {{ featured_group.facilitator }}</span>
+                  <span><i class="fas fa-users"></i> {{ featured_group.member_count }} members</span>
                 </div>
-                <a href="{{ url_for('community_bp.group_detail', group_id=group.id) }}" class="card-link">
+                <a href="{{ url_for('community_bp.group_detail', group_id=featured_group.id) }}" class="gradient-button">
                   View Group <i class="fas fa-arrow-right"></i>
                 </a>
               </div>
@@ -84,18 +87,21 @@
           <a href="{{ url_for('community_bp.events') }}" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="events-preview">
-          {% if events %}
-            {% for event in events %}
+          {% if upcoming_events %}
+            {% for upcoming_event in upcoming_events %}
               <div class="event-card">
                 <div class="event-date">
-                  <span class="day">{{ event.date.strftime('%d') }}</span>
-                  <span class="month">{{ event.date.strftime('%b') }}</span>
+                  <span class="day">{{ upcoming_event.date.strftime('%d') }}</span>
+                  <span class="month">{{ upcoming_event.date.strftime('%b') }}</span>
                 </div>
                 <div class="event-details">
-                  <h3>{{ event.title }}</h3>
-                  <p class="event-info"><i class="fas fa-clock"></i> {{ event.date.strftime('%I:%M %p') }} • {{ event.duration_minutes }} mins</p>
-                  <p class="event-info"><i class="fas fa-user"></i> Hosted by {{ event.host }}</p>
-                  <a href="{{ url_for('community_bp.event_detail', event_id=event.id) }}" class="card-link">
+                  <h3>{{ upcoming_event.title }}</h3>
+                  <div class="event-info">
+                    <p><i class="fas fa-clock"></i> {{ upcoming_event.time }}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> {{ upcoming_event.location }}</p>
+                    <p><i class="fas fa-user"></i> Hosted by {{ upcoming_event.host }}</p>
+                  </div>
+                  <a href="{{ url_for('community_bp.event_detail', event_id=upcoming_event.id) }}" class="gradient-button">
                     View Details <i class="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -119,7 +125,11 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    AOS.init();
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out',
+      once: true
+    });
   });
 </script>
 {% endblock %}

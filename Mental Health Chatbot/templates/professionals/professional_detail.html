@@ -3,6 +3,7 @@
 {% block head %}
 {{ super() }}
 <link href="{{ url_for('static', filename='css/professionals.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/professionals_detail.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}{{ professional.name }} - Aurora{% endblock %}
@@ -14,11 +15,11 @@
       <div class="breadcrumbs">
         <a href="{{ url_for('professional_bp.professionals_home') }}">Professional Help</a> &gt;
         {% if professional.profession == 'Psychologist' %}
-          <a href="{{ url_for('professional_bp.psychologists') }}">Psychologists</a>
+          <a href="{{ url_for('professional_bp.psychologists_page') }}">Psychologists</a>
         {% elif professional.profession == 'Psychiatrist' %}
-          <a href="{{ url_for('professional_bp.psychiatrists') }}">Psychiatrists</a>
+          <a href="{{ url_for('professional_bp.psychiatrists_page') }}">Psychiatrists</a>
         {% else %}
-          <a href="{{ url_for('professional_bp.counselors') }}">Counselors</a>
+          <a href="{{ url_for('professional_bp.counselors_page') }}">Counselors</a>
         {% endif %}
         &gt;
         <span>{{ professional.name }}</span>
@@ -50,14 +51,14 @@
             
             <h3>Specialties</h3>
             <div class="specialties-list">
-              {% for specialty in professional.specialties.split(',') %}
+              {% for specialty in professional.specialty.split(',') %}
                 <span class="specialty-tag">{{ specialty.strip() }}</span>
               {% endfor %}
             </div>
             
             <h3>Education & Credentials</h3>
             <ul class="credentials-list">
-              {% for credential in professional.credentials.split(';') %}
+              {% for credential in professional.education %}
                 <li><i class="fas fa-graduation-cap"></i> {{ credential.strip() }}</li>
               {% endfor %}
             </ul>

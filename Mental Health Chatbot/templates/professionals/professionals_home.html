@@ -3,6 +3,8 @@
 {% block head %}
 {{ super() }}
 <link href="{{ url_for('static', filename='css/professionals.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/professionals_home.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}Professional Help - Aurora{% endblock %}
@@ -30,7 +32,7 @@
           <li><i class="fas fa-check"></i> Cognitive behavioral techniques</li>
           <li><i class="fas fa-check"></i> Psychological evaluation</li>
         </ul>
-        <a href="{{ url_for('professional_bp.psychologists') }}" class="gradient-button">
+        <a href="{{ url_for('professional_bp.psychologists_page') }}" class="gradient-button">
           Browse Psychologists <i class="fas fa-arrow-right"></i>
         </a>
       </div>
@@ -47,7 +49,7 @@
           <li><i class="fas fa-check"></i> Treatment for severe conditions</li>
           <li><i class="fas fa-check"></i> Medical approach to mental health</li>
         </ul>
-        <a href="{{ url_for('professional_bp.psychiatrists') }}" class="gradient-button">
+        <a href="{{ url_for('professional_bp.psychiatrists_page') }}" class="gradient-button">
           Browse Psychiatrists <i class="fas fa-arrow-right"></i>
         </a>
       </div>
@@ -64,7 +66,7 @@
           <li><i class="fas fa-check"></i> Career guidance</li>
           <li><i class="fas fa-check"></i> Stress management techniques</li>
         </ul>
-        <a href="{{ url_for('professional_bp.counselors') }}" class="gradient-button">
+        <a href="{{ url_for('professional_bp.counselors_page') }}" class="gradient-button">
           Browse Counselors <i class="fas fa-arrow-right"></i>
         </a>
       </div>

@@ -3,6 +3,7 @@
 {% block head %}
 {{ super() }}
 <link href="{{ url_for('static', filename='css/professionals.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/counselors.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}Counselors - Aurora{% endblock %}
@@ -39,13 +40,16 @@
     </div>
 
     <div class="professionals-grid" id="professionals-container">
-      {% if professionals %}
-        {% for professional in professionals %}
+      {% if counselors_professionals %}
+        {% for professional in counselors_professionals %}
           <div class="professional-card" data-aos="fade-up">
             <div class="professional-header">
-              <div class="professional-avatar">
-                {{ professional.name[0] }}{{ professional.name.split()[-1][0] }}
-              </div>
+                <div class="professional-avatar {% if not professional.image_url %}initials{% endif %}" 
+                {% if professional.image_url %}style="background-image: url('{{ professional.image_url }}')"{% endif %}>
+               {% if not professional.image_url %}
+                   {{ professional.name[0] }}{{ professional.name.split()[-1][0] }}
+               {% endif %}
+           </div>
               <div class="professional-badges">
                 <span class="badge verified"><i class="fas fa-check-circle"></i> Verified</span>
               </div>
@@ -55,7 +59,7 @@
               <h3>{{ professional.name }}</h3>
               <p class="professional-title">{{ professional.credentials }}</p>
               <div class="professional-specialties">
-                {% for specialty in professional.specialties.split(',') %}
+                {% for specialty in professional.specialty.split(',') %}
                   <span class="specialty-tag">{{ specialty.strip() }}</span>
                 {% endfor %}
               </div>
@@ -63,7 +67,7 @@
             </div>
             
             <div class="professional-footer">
-              <a href="{{ url_for('professional_bp.professional_detail', professional_id=professional.id) }}" class="card-link">
+              <a href="{{ url_for('professional_bp.professional_detail', professional_id=professional.id) }}" class="gradient-button view-profile-btn">
                 View Profile <i class="fas fa-arrow-right"></i>
               </a>
             </div>

@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
+    padding-bottom: 3rem;
 }
 
 /* Welcome Section */
@@ -66,6 +67,108 @@
     color: transparent;
 }
 
+/* Card Grid */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 15px;
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(var(--primary-color-rgb), 0.05), rgba(var(--primary-color-rgb), 0));
+    z-index: -1;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 8px 15px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.chat-icon {
+    background: linear-gradient(45deg, #8b5cf6, #6366f1);
+}
+
+.mood-icon {
+    background: linear-gradient(45deg, #10b981, #34d399);
+}
+
+.journal-icon {
+    background: linear-gradient(45deg, #ec4899, #f43f5e);
+}
+
+.community-icon {
+    background: linear-gradient(45deg, #3b82f6, #6366f1);
+}
+
+.resources-icon {
+    background: linear-gradient(45deg, #f59e0b, #fbbf24);
+}
+
+.professionals-icon {
+    background: linear-gradient(45deg, #8b5cf6, #c084fc);
+}
+
+.card-icon i {
+    font-size: 1.8rem;
+    color: white;
+}
+
+.card-content h3 {
+    font-size: 1.4rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+}
+
+.card-content p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.card-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.3s ease;
+    margin-top: auto;
+}
+
+.card-link:hover {
+    gap: 0.8rem;
+    color: var(--secondary-color);
+}
+
 /* Feature Grid */
 .feature-grid {
     display: grid;
@@ -101,29 +204,6 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-.card-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 15px;
-    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.2rem;
-    box-shadow: 0 8px 15px rgba(var(--primary-color-rgb), 0.2);
-}
-
-.card-icon i {
-    font-size: 1.8rem;
-    color: white;
-}
-
-.feature-card h3 {
-    font-size: 1.4rem;
-    margin: 0;
-    margin-bottom: 0.5rem;
-}
-
 .stat-number {
     font-size: 2.2rem;
     font-weight: 700;
@@ -132,23 +212,6 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-}
-
-.card-link {
-    color: var(--text-primary);
-    text-decoration: none;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: auto;
-    padding: 0.8rem 0;
-    transition: gap 0.3s ease;
-}
-
-.card-link:hover {
-    gap: 0.8rem;
-    color: var(--secondary-color);
 }
 
 /* Chart Section */
@@ -289,8 +352,8 @@
 }
 
 .professional-type div {
-    display: flex;
-    flex-direction: column;
+    flex: 1; /* Ensures text does not overflow */
+    min-width: 0; /* Prevents text from forcing extra width */
 }
 
 .professional-type h4 {

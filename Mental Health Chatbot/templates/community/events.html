@@ -3,6 +3,7 @@
 {% block head %}
 {{ super() }}
 <link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/events.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}Events - Aurora Community{% endblock %}
@@ -37,8 +38,8 @@
       <h2 class="section-title">Upcoming Events</h2>
       
       <div class="events-grid" id="upcoming-events-container">
-        {% if upcoming_events %}
-          {% for event in upcoming_events %}
+        {% if events %}
+          {% for event in events %}
             <div class="event-card" data-aos="fade-up">
               <div class="event-date">
                 <span class="day">{{ event.date.strftime('%d') }}</span>
@@ -51,7 +52,7 @@
                   <p><i class="fas fa-clock"></i> {{ event.date.strftime('%I:%M %p') }} • {{ event.duration_minutes }} mins</p>
                   <p><i class="fas fa-user"></i> Hosted by {{ event.host }}</p>
                 </div>
-                <a href="{{ url_for('community_bp.event_detail', event_id=event.id) }}" class="card-link">
+                <a href="{{ url_for('community_bp.event_detail', event_id=event.id) }}" class="gradient-button">
                   View Details <i class="fas fa-arrow-right"></i>
                 </a>
               </div>
@@ -72,8 +73,8 @@
       <h2 class="section-title">Past Events</h2>
       
       <div class="events-grid" id="past-events-container">
-        {% if past_events %}
-          {% for event in past_events %}
+        {% if registered_events %}
+          {% for event in registered_events %}
             <div class="event-card past-event" data-aos="fade-up">
               <div class="event-date">
                 <span class="day">{{ event.date.strftime('%d') }}</span>

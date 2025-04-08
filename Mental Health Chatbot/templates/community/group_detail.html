@@ -3,12 +3,13 @@
 {% block head %}
 {{ super() }}
 <link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/groups.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}{{ group.name }} - Aurora Groups{% endblock %}
 
 {% block content %}
-<div class="community-page group-detail-page">
+<div class="community-page groups-page group-detail-page">
   <div class="community-header">
     <div class="container">
       <div class="breadcrumbs">
@@ -32,7 +33,7 @@
               <i class="fas fa-calendar"></i>
               <div>
                 <h4>Meeting Schedule</h4>
-                <p>{{ group.meeting_schedule }}</p>
+                <p>{{ group.meeting_frequency }}</p>
               </div>
             </div>
             
@@ -48,7 +49,7 @@
               <i class="fas fa-users"></i>
               <div>
                 <h4>Group Size</h4>
-                <p>{{ group.members|length }}/{{ group.max_participants }} members</p>
+                <p>{{ group.member_count }}/{{ group.max_participants }} members</p>
               </div>
             </div>
             
@@ -63,7 +64,7 @@
         </div>
         
         <div class="group-actions">
-          {% if group in session.user.groups %}
+          {% if group in user_groups %}
             <button id="leave-group-btn" class="btn-secondary" data-group-id="{{ group.id }}">
               <i class="fas fa-sign-out-alt"></i> Leave Group
             </button>
@@ -85,52 +86,51 @@
         <div class="upcoming-meetings">
           <h3>Upcoming Meetings</h3>
           <div class="meeting-list">
-            <!-- We would generate these from actual data in a real app -->
             <div class="meeting-item">
               <div class="meeting-date">
-                <span class="day">15</span>
-                <span class="month">Nov</span>
+                <span class="day">{{ group.next_meeting.day }}</span>
+                <span class="month">{{ group.next_meeting.strftime('%b') }}</span>
               </div>
               <div class="meeting-info">
                 <h4>Weekly Check-in</h4>
-                <p><i class="fas fa-clock"></i> 7:00 PM - 8:00 PM</p>
+                <p><i class="fas fa-clock"></i> {{ group.meeting_frequency.split(' - ')[1] }}</p>
               </div>
             </div>
             
             <div class="meeting-item">
               <div class="meeting-date">
-                <span class="day">22</span>
-                <span class="month">Nov</span>
+                <span class="day">{{ (group.next_meeting + timedelta(days=7)).day }}</span>
+                <span class="month">{{ (group.next_meeting + timedelta(days=7)).strftime('%b') }}</span>
               </div>
               <div class="meeting-info">
                 <h4>Weekly Check-in</h4>
-                <p><i class="fas fa-clock"></i> 7:00 PM - 8:00 PM</p>
+                <p><i class="fas fa-clock"></i> {{ group.meeting_frequency.split(' - ')[1] }}</p>
               </div>
             </div>
             
             <div class="meeting-item">
               <div class="meeting-date">
-                <span class="day">29</span>
-                <span class="month">Nov</span>
+                <span class="day">{{ (group.next_meeting + timedelta(days=14)).day }}</span>
+                <span class="month">{{ (group.next_meeting + timedelta(days=14)).strftime('%b') }}</span>
               </div>
               <div class="meeting-info">
                 <h4>Weekly Check-in</h4>
-                <p><i class="fas fa-clock"></i> 7:00 PM - 8:00 PM</p>
+                <p><i class="fas fa-clock"></i> {{ group.meeting_frequency.split(' - ')[1] }}</p>
               </div>
             </div>
           </div>
         </div>
         
         <div class="group-members">
-          <h3>Members ({{ group.members|length }})</h3>
+          <h3>Members ({{ members|length }})</h3>
           <div class="members-list">
-            {% for member in group.members %}
+            {% for member in members %}
               <div class="member-item">
                 <div class="member-avatar">
                   {{ member.username[0] }}
                 </div>
                 <div class="member-name">
-                  {% if member.id == session.user_id %}
+                  {% if member.id == session.get('user_id') %}
                     {{ member.username }} (You)
                   {% else %}
                     {{ member.username }}
@@ -149,5 +149,14 @@
 {% block scripts %}
 {{ super() }}
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out',
+      once: true
+    });
+  });
+</script>
 <script src="{{ url_for('static', filename='js/community/groups.js') }}"></script>
 {% endblock %}

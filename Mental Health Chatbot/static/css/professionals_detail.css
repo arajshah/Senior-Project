@@ -1,0 +1,360 @@
+/* Professional Detail Page Custom Styling */
+.professionals-page.detail-page .professionals-header {
+    background: linear-gradient(135deg, var(--professionals-gradient-start), var(--professionals-gradient-end));
+    padding: 3rem 0;
+    text-align: center;
+  }
+  
+  .professionals-page.detail-page .page-title {
+    color: white !important;
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: initial !important;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .professionals-header .page-title {
+    color: white !important;
+    text-align: center;
+  }
+  
+  .professional-container {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .professionals-header .breadcrumbs {
+    text-align: left;
+  }
+  
+  /* Profile Card Styles */
+  .profile-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 2rem;
+    color: var(--text-primary);
+  }
+  
+  .profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  
+  .profile-avatar.large {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--professionals-primary), var(--professionals-secondary));
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .profile-badges {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .profile-info h2,
+  .profile-info h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+  }
+  
+  .profile-info p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  
+  /* Education List */
+  .credentials-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .credentials-list li {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-secondary);
+  }
+  
+  .credentials-list i {
+    color: var(--professionals-secondary);
+  }
+  
+  /* Booking Card */
+  .booking-card {
+    margin-top: 2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.8rem;
+  }
+  
+  .booking-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .booking-intro {
+    color: var(--text-tertiary);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .date-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+  }
+  
+  .date-nav {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .date-options {
+    display: flex;
+    gap: 0.8rem;
+  }
+  
+  .date-option {
+    padding: 0.7rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .date-option.selected {
+    background: linear-gradient(135deg, var(--professionals-primary), var(--professionals-secondary));
+    color: white;
+    font-weight: 600;
+  }
+  
+  .time-slots h3,
+  .session-type h3 {
+    margin: 1.5rem 0 0.8rem;
+    font-size: 1.1rem;
+  }
+  
+  .time-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+  
+  .time-option {
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  
+  .session-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .session-option {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+  }
+  
+  .session-option input {
+    margin: 0;
+  }
+  
+  .session-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+  }
+  
+  .book-now-btn {
+    margin-top: 1.5rem;
+    width: 100%;
+  }
+  
+  /* Sidebar Styles */
+  .professional-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .availability-card,
+  .reviews-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid var(--card-border);
+  }
+  
+  .availability-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--text-secondary);
+  }
+  
+  .availability-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+  }
+  
+  .availability-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .reviews-summary {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .rating-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--text-primary);
+  }
+  
+  .stars {
+    color: #fbbf24;
+  }
+  
+  .reviews-count {
+    font-size: 0.9rem;
+    color: var(--text-tertiary);
+  }
+  
+  .review {
+    margin-bottom: 1.2rem;
+  }
+  
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+  }
+  
+  .review-avatar {
+    width: 36px;
+    height: 36px;
+    background: var(--professionals-secondary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  
+  .review-info {
+    flex-grow: 1;
+    margin-left: 0.8rem;
+  }
+  
+  .review-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  
+  .review-date {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+  }
+  
+  .review-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  
+  /* Modal Override Styles */
+  #booking-modal {
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  #booking-modal .modal-content {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid var(--card-border);
+    max-width: 500px;
+    margin: auto;
+    color: var(--text-primary);
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-body {
+    margin-top: 1.5rem;
+  }
+  
+  .modal-body i {
+    color: #10b981;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .modal-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+  
+  .modal-footer button {
+    margin-top: 1rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 992px) {
+    .professional-container {
+      grid-template-columns: 1fr;
+    }
+  
+    .professional-sidebar {
+      flex-direction: row;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+  
+    .availability-card,
+    .reviews-card {
+      flex: 1 1 100%;
+    }
+  }
+  

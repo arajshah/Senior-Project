@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify
 from db import db
 from models.journal import Journal
+from models.goal import Goal  # Import the new Goal model
 from datetime import datetime, timedelta
 
 journal_bp = Blueprint("journal_bp", __name__)
@@ -14,6 +15,28 @@ def journal():
     
     entries = Journal.query.filter_by(user_id=user_id).order_by(Journal.timestamp.desc()).all()
     return render_template("journal.html", entries=entries)
+
+@journal_bp.route("/new-entry", methods=["GET", "POST"])
+def new_entry():
+    """Render the new journal entry page and handle form submission"""
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("user_bp.login"))
+    
+    if request.method == "POST":
+        title = request.form.get("title")
+        content = request.form.get("content")
+        
+        if not title or not content:
+            return "Title and content are required", 400
+            
+        new_entry = Journal(user_id, title, content)
+        db.session.add(new_entry)
+        db.session.commit()
+        
+        return redirect(url_for("journal_bp.journal"))
+        
+    return render_template("new_journal_entry.html")
 
 @journal_bp.route("/journal/add", methods=["POST"])
 def add_journal():
@@ -129,6 +152,78 @@ def journal_stats():
         "entry_count": len(entries),
         "streak": streak,
         "latest_entry": entries[0].timestamp.strftime("%Y-%m-%d") if entries else None
+    })
+
+@journal_bp.route("/prompts", methods=["GET"])
+def prompts():
+    """Render the journal prompts page"""
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("user_bp.login"))
+    
+    # Sample prompts that could be moved to a database
+    journal_prompts = [
+        "What are three things you're grateful for today?",
+        "Describe a challenge you're facing and three possible ways to address it.",
+        "What made you smile today?",
+        "Reflect on a recent accomplishment. What did you learn from it?",
+        "What are you looking forward to this week?",
+        "Describe a moment when you felt proud of yourself recently.",
+        "What self-care activities could you prioritize today?",
+        "Write about a concern that's been weighing on your mind.",
+        "What boundaries do you need to set or maintain for your mental health?",
+        "Describe your ideal day. What would you do and how would you feel?"
+    ]
+    
+    return render_template("journal_prompts.html", prompts=journal_prompts)
+
+@journal_bp.route("/goals", methods=["GET", "POST"])
+def goals():
+    """Render the goals page and handle form submission"""
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("user_bp.login"))
+    
+    if request.method == "POST":
+        title = request.form.get("title")
+        description = request.form.get("description", "")
+        due_date_str = request.form.get("due_date")
+        
+        if not title or not due_date_str:
+            return "Title and due date are required", 400
+            
+        try:
+            due_date = datetime.strptime(due_date_str, "%Y-%m-%d")
+            new_goal = Goal(user_id, title, due_date, description)
+            db.session.add(new_goal)
+            db.session.commit()
+            return redirect(url_for("journal_bp.goals"))
+        except ValueError:
+            return "Invalid date format", 400
+    
+    # Get all user goals
+    goals = Goal.query.filter_by(user_id=user_id).order_by(Goal.due_date).all()
+    return render_template("goals.html", goals=goals)
+
+@journal_bp.route("/goals/toggle/<int:goal_id>", methods=["POST"])
+def toggle_goal(goal_id):
+    """Toggle a goal's completion status"""
+    user_id = session.get("user_id")
+    if not user_id:
+        return jsonify({"error": "You must be logged in to update goals"}), 401
+    
+    # Get goal
+    goal = Goal.query.filter_by(id=goal_id, user_id=user_id).first()
+    if not goal:
+        return jsonify({"error": "Goal not found or access denied"}), 404
+    
+    # Toggle status
+    goal.completed = not goal.completed
+    db.session.commit()
+    
+    return jsonify({
+        "success": True,
+        "completed": goal.completed
     })
 
 def calculate_streak(entries, user_id):

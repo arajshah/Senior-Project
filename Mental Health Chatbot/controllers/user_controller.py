@@ -74,4 +74,9 @@ def dashboard():
         'journal_count': Journal.query.filter_by(user_id=user_id).count()
     }
 
+    # Add goals for the dashboard
+    from models.goal import Goal
+    goals = Goal.query.filter_by(user_id=user_id).filter(Goal.due_date >= datetime.now()).order_by(Goal.due_date).limit(5).all()
+    stats['goals'] = goals
+
     return render_template("dashboard.html", **stats)

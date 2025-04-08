@@ -3,6 +3,7 @@
 {% block head %}
 {{ super() }}
 <link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/groups.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}Support Groups - Aurora Community{% endblock %}
@@ -12,7 +13,7 @@
   <div class="community-header">
     <div class="container">
       <h1 class="page-title"><i class="fas fa-user-friends"></i> Support Groups</h1>
-      <p class="subtitle">Join virtual support groups led by experienced facilitators</p>
+      <p class="subtitle">Join virtual support groups led by experienced facilitators and connect with others on similar journeys</p>
     </div>
   </div>
 
@@ -36,17 +37,17 @@
     <div class="groups-grid" id="groups-container">
       {% if groups %}
         {% for group in groups %}
-          <div class="group-card" data-aos="fade-up">
+          <div class="group-card" data-aos="fade-up" data-aos-delay="{{ loop.index * 50 }}">
             <h3>{{ group.name }}</h3>
             <p>{{ group.description }}</p>
             <div class="group-details">
               <div class="group-info">
-                <span><i class="fas fa-calendar"></i> {{ group.meeting_schedule }}</span>
+                <span><i class="fas fa-calendar"></i> {{ group.meeting_frequency }}</span>
                 <span><i class="fas fa-user-tie"></i> Facilitator: {{ group.facilitator }}</span>
-                <span><i class="fas fa-users"></i> {{ group.members|length }}/{{ group.max_participants }} members</span>
+                <span><i class="fas fa-users"></i> {{ group.member_count }}/{{ group.max_participants }} members</span>
               </div>
             </div>
-            <a href="{{ url_for('community_bp.group_detail', group_id=group.id) }}" class="card-link">
+            <a href="{{ url_for('community_bp.group_detail', group_id=group.id) }}" class="gradient-button">
               View Group <i class="fas fa-arrow-right"></i>
             </a>
           </div>
@@ -66,5 +67,14 @@
 {% block scripts %}
 {{ super() }}
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out',
+      once: true
+    });
+  });
+</script>
 <script src="{{ url_for('static', filename='js/community/groups.js') }}"></script>
 {% endblock %}

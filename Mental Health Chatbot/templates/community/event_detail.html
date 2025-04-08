@@ -3,12 +3,13 @@
 {% block head %}
 {{ super() }}
 <link href="{{ url_for('static', filename='css/community.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/events.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block title %}{{ event.title }} - Aurora Events{% endblock %}
 
 {% block content %}
-<div class="community-page event-detail-page">
+<div class="community-page events-page event-detail-page">
   <div class="community-header">
     <div class="container">
       <div class="breadcrumbs">
@@ -16,14 +17,15 @@
         <a href="{{ url_for('community_bp.events') }}">Events</a> &gt;
         <span>{{ event.title }}</span>
       </div>
-      <h1 class="page-title">{{ event.title }}</h1>
+      <h1 class="page-title"><i class="fas fa-calendar-check"></i> {{ event.title }}</h1>
+      <p class="subtitle">Join us for this special community event</p>
     </div>
   </div>
 
   <div class="container">
     <div class="event-container">
       <div class="event-main-content" data-aos="fade-up">
-        <div class="event-info-card">
+        <div class="event-info-card event-description-card">
           <div class="event-datetime">
             <div class="event-date">
               <span class="day">{{ event.date.strftime('%d') }}</span>
@@ -32,7 +34,7 @@
             </div>
             <div class="event-time">
               <i class="fas fa-clock"></i>
-              <span>{{ event.date.strftime('%I:%M %p') }}</span>
+              <span>{{ event.time.split(' - ')[0] }}</span>
               <span class="duration">{{ event.duration_minutes }} minutes</span>
             </div>
           </div>
@@ -50,14 +52,14 @@
               </div>
               <div class="host-details">
                 <h4>{{ event.host }}</h4>
-                <p>Mental Health Specialist</p>
+                <p>{{ event.organizer }}</p>
               </div>
             </div>
           </div>
 
           {% if event.date > now %}
             <div class="event-actions">
-              {% if event in session.user.events %}
+              {% if event in user_events %}
                 <button id="cancel-registration-btn" class="btn-secondary" data-event-id="{{ event.id }}">
                   <i class="fas fa-times"></i> Cancel Registration
                 </button>
@@ -73,7 +75,7 @@
                 </a>
               {% endif %}
               
-              <button id="add-calendar-btn" class="btn-outline">
+              <button id="add-calendar-btn" class="gradient-button">
                 <i class="fas fa-calendar-plus"></i> Add to Calendar
               </button>
             </div>
@@ -98,7 +100,7 @@
                   {{ attendee.username[0] }}
                 </div>
                 <div class="attendee-name">
-                  {% if attendee.id == session.user_id %}
+                  {% if attendee.id == session.get('user_id') %}
                     {{ attendee.username }} (You)
                   {% else %}
                     {{ attendee.username }}
@@ -113,28 +115,18 @@
           <h3>Related Events</h3>
           
           <div class="related-events-list">
-            <!-- This would be populated with actual related events in a real app -->
-            <div class="related-event-item">
-              <div class="related-event-date">
-                <span class="day">18</span>
-                <span class="month">Nov</span>
+            {% for related in related_events %}
+              <div class="related-event-item">
+                <div class="related-event-date">
+                  <span class="day">{{ related.date.strftime('%d') }}</span>
+                  <span class="month">{{ related.date.strftime('%b') }}</span>
+                </div>
+                <div class="related-event-info">
+                  <h4>{{ related.title }}</h4>
+                  <p>{{ related.time.split(' - ')[0] }} • {{ related.duration_minutes }} minutes</p>
+                </div>
               </div>
-              <div class="related-event-info">
-                <h4>Mindfulness Workshop</h4>
-                <p>7:00 PM • 60 minutes</p>
-              </div>
-            </div>
-            
-            <div class="related-event-item">
-              <div class="related-event-date">
-                <span class="day">25</span>
-                <span class="month">Nov</span>
-              </div>
-              <div class="related-event-info">
-                <h4>Stress Management</h4>
-                <p>6:30 PM • 45 minutes</p>
-              </div>
-            </div>
+            {% endfor %}
           </div>
         </div>
       </div>
